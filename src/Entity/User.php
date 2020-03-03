@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 
-use App\Services\RoleManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,6 +36,33 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pseudo;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="author")
+     */
+    private $items;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ad", mappedBy="author", orphanRemoval=true)
+     */
+    private $ads;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Grade", mappedBy="author", orphanRemoval=true)
+     */
+    private $grades;
+
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+        $this->ads = new ArrayCollection();
+        $this->grades = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -112,5 +140,110 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Item[]
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(Item $item): self
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): self
+    {
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            // set the owning side to null (unless already changed)
+            if ($item->getAuthor() === $this) {
+                $item->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ad[]
+     */
+    public function getAds(): Collection
+    {
+        return $this->ads;
+    }
+
+    public function addAd(Ad $ad): self
+    {
+        if (!$this->ads->contains($ad)) {
+            $this->ads[] = $ad;
+            $ad->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAd(Ad $ad): self
+    {
+        if ($this->ads->contains($ad)) {
+            $this->ads->removeElement($ad);
+            // set the owning side to null (unless already changed)
+            if ($ad->getAuthor() === $this) {
+                $ad->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Grade[]
+     */
+    public function getGrades(): Collection
+    {
+        return $this->grades;
+    }
+
+    public function addGrade(Grade $grade): self
+    {
+        if (!$this->grades->contains($grade)) {
+            $this->grades[] = $grade;
+            $grade->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGrade(Grade $grade): self
+    {
+        if ($this->grades->contains($grade)) {
+            $this->grades->removeElement($grade);
+            // set the owning side to null (unless already changed)
+            if ($grade->getAuthor() === $this) {
+                $grade->setAuthor(null);
+            }
+        }
+
+        return $this;
     }
 }
