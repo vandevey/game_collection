@@ -1,0 +1,12 @@
+easy_admin:
+    site_name: '<em style="font-size: 80%;">Game Collect Management.</em>'
+    design:
+        brand_color: '#1ABC9C'
+    entities:
+        # List the entity class name you want to manage
+        Ad:
+            class:  App\Entity\Ad
+        Category:
+            class : App\Entity\Category
+        User:
+            class: App\Entity\User
