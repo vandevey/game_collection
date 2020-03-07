@@ -12,6 +12,8 @@
         {{ form_errors(registrationForm.password) }}
         {{ form_row(registrationForm.agreeTerms) }}
 
+    <input type="hidden" value="{{ role.getRole(constant('ADMIN', role)) }}">
+
         <button class="btn">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
