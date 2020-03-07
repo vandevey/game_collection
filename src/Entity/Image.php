@@ -19,7 +19,7 @@ class Image
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $url;
+    private $key;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="images")
@@ -33,12 +33,12 @@ class Image
 
     public function getUrl(): ?string
     {
-        return $this->url;
+        return $this->key;
     }
 
     public function setUrl(string $url): self
     {
-        $this->url = $url;
+        $this->key = $url;
 
         return $this;
     }

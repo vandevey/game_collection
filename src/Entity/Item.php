@@ -49,7 +49,7 @@ class Item
     private $categories;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Ad", mappedBy="item")
+     * @ORM\OneToMany(targetEntity="App\Entity\Ad", mappedBy="item")
      */
     private $ads;
 

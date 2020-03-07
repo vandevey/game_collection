@@ -49,7 +49,7 @@ class Ad
     private $update_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Item", inversedBy="ads")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="ads")
      */
     private $item;
 
