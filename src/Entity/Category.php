@@ -54,12 +54,12 @@ class Category
         return $this->id;
     }
 
-    public function getAme(): ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setAme(string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
