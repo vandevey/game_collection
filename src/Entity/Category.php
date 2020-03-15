@@ -99,6 +99,10 @@ class Category
 
     public function setParent(?self $parent): self
     {
+        if ($parent->id === $this->id) {
+            return $this;
+        }
+
         $this->parent = $parent;
 
         return $this;
@@ -145,5 +149,10 @@ class Category
         $this->is_active = $is_active;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

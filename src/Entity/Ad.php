@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Tools\TimeStampTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Ad
 {
+    use TimeStampTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -37,16 +40,6 @@ class Ad
      * @ORM\Column(type="boolean")
      */
     private $is_on_sale;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $update_at;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="ads")
@@ -119,30 +112,6 @@ class Ad
     public function setIsOnSale(bool $is_on_sale): self
     {
         $this->is_on_sale = $is_on_sale;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdateAt(): ?\DateTimeInterface
-    {
-        return $this->update_at;
-    }
-
-    public function setUpdateAt(\DateTimeInterface $update_at): self
-    {
-        $this->update_at = $update_at;
 
         return $this;
     }

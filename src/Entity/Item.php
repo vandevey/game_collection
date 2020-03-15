@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Tools\TimeStampTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Item
 {
+    use TimeStampTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -32,16 +35,6 @@ class Item
      * @ORM\Column(type="boolean")
      */
     private $is_visible;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $update_at;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="Item")
@@ -108,30 +101,6 @@ class Item
     public function setIsVisible(bool $is_visible): self
     {
         $this->is_visible = $is_visible;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdateAt(): ?\DateTimeInterface
-    {
-        return $this->update_at;
-    }
-
-    public function setUpdateAt(\DateTimeInterface $update_at): self
-    {
-        $this->update_at = $update_at;
 
         return $this;
     }
@@ -235,4 +204,8 @@ class Item
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
