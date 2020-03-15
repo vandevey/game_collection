@@ -1,3 +1,147 @@
+@import 'colors.scss';
+@import 'vars.scss';
+@import 'fonts.scss';
+
 body {
-    background-color: lightgray;
+    padding: 0;
+    margin: 0;
+    background-color: $bg-color;
+}
+
+#header {
+    width: 100vw;
+    height: auto;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    #header-logo {
+        z-index: 3;
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        transform: translate(-50%, 0);
+
+        text-align: center;
+
+        &:before, &:after {
+            content: '';
+            display: block;
+            z-index: -1;
+
+            border-radius: 50%;
+            background: rgba(245, 244, 244, 0.27);
+        }
+
+        &:before {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 250px;
+            height: 70px;
+        }
+
+        &:after {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+
+            width: 220px;
+            height: 100px;
+        }
+
+
+    }
+
+    #header-login {
+        position: absolute;
+        right: 15px;
+        top: 30px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        #header-username-avatar-wrapper {
+            z-index: 2;
+
+            display: flex;
+            align-items: center;
+            #header-username {
+                width: 115px;
+                height: 24px;
+                background-color: $bg-complementary;
+                color: $bg-color;
+
+                padding: 5px 15px;
+                border-radius: 0 0 0 10px;
+
+                text-align: center;
+            }
+
+            #header-login-avatar {
+                margin: {
+                    left: -15px;
+                }
+                width: 48px;
+                height: 48px;
+                background-color: $bg-complementary;
+                border-radius: 50%;
+
+                img {
+                    width: 48px;
+                    height: 48px;
+                }
+
+                text-align: center;
+                overflow: hidden;
+            }
+        }
+
+        .header-sign {
+            z-index: 1;
+            padding: 5px 10px;
+            margin: {
+                top: -10px;
+                right: -20px;
+            };
+            width: 110px;
+
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 0 0 10px 10px;
+
+            text-align: center;
+            color: $bg-complementary;
+
+            &#header-logout {
+                background-color: #E12121;
+            }
+
+            &#header-signin {
+                background: #06A829;
+            }
+
+            cursor: pointer;
+        }
+
+    }
+}
+
+
+#user-detail {
+
+}
+
+#user-add {
+    // temp
+    position: absolute;
+    bottom: 0;
+    height: 500px;
+    // temp
+    background-color: $bg-complementary;
+    width: 100vw;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }

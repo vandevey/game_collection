@@ -9,8 +9,11 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block header %}
+            {% include 'views/partials/_header.html.twig' %}
+        {% endblock %}
 
+        {% block body %}{% endblock %}
         <!-- JS -->
         {{ encore_entry_script_tags("js/app") }}
         {% block javascripts %}{% endblock %}

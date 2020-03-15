@@ -1,0 +1,26 @@
+<section id='header'>
+    <div id='header-logo'>
+        <img src="{{ asset('build/images/logos/logo_white_min.2dacb67a.png') }}" alt="logo" width="64" height="64">
+    </div>
+
+    <div id='header-login'>
+        <div id='header-username-avatar-wrapper'>
+            <div id='header-username'>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    app.user.pseudo
+                {% else %}
+                    Hello guess !
+                {% endif %}
+            </div>
+            <div id='header-login-avatar'>
+                <img src="{{ asset('build/images/avatars/gamer.7e386fe5.png') }}" alt="">
+            </div>
+        </div>
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div id='header-signin' class='header-sign'>Sign in</div>
+        {% else %}
+            <a href="{{ path('app_logout') }}" style='text-decoration: none'><div id='header-logout' class='header-sign'>Log out</div></a>
+        {% endif %}
+    </div>
+</section>
