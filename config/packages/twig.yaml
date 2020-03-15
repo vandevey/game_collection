@@ -1,5 +1,5 @@
 twig:
-    default_path: '%kernel.project_dir%/templates/views'
+    default_path: '%kernel.project_dir%/templates'
 
     globals:
         role: '@App\Services\RoleManager'

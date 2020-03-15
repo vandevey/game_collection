@@ -14,6 +14,14 @@ Encore
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 
+    .copyFiles({
+        from: './assets/images',
+        //if versioning is enabled, add the file hash too
+        to: 'images/[path][name].[hash:8].[ext]',
+        // only copy files matching this pattern
+        pattern: /\.(png|jpg|jpeg)$/
+    })
+
     .addEntry('js/app', './assets/js/app.js')
     .addEntry('css/app', './assets/scss/app.scss')
     .cleanupOutputBeforeBuild()
