@@ -34,12 +34,7 @@ class Item
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_visible;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="Item")
-     */
-    private $categories;
+    private $is_visible = true;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="items")
@@ -57,10 +52,15 @@ class Item
      */
     private $offer;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="items")
+     */
+    private $categories;
+
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
 

@@ -26,12 +26,18 @@ class Category
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_active;
+    private $is_active = true;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Item", inversedBy="categories")
      */
-    private $item;
+    private $items;
+
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -63,6 +69,32 @@ class Category
     public function setIsActive(bool $is_active): self
     {
         $this->is_active = $is_active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Item[]
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(Item $item): self
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): self
+    {
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+        }
 
         return $this;
     }

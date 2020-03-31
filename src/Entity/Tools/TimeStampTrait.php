@@ -27,7 +27,7 @@ trait TimeStampTrait
     }
 
 
-    public function setCreatedAt(): void
+    public function setCreatedAt(\DateTime $date): void
     {
         if (null !== $this->created_at) {
             return;

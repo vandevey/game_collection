@@ -59,6 +59,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="author")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $messages;
 
@@ -297,6 +298,22 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getMessages(): ?ArrayCollection
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param ArrayCollection $messages
+     */
+    public function setMessages(?ArrayCollection $messages): void
+    {
+        $this->messages = $messages;
+    }
+
     public function getIsDeleted(): ?bool
     {
         return $this->is_deleted;
@@ -307,5 +324,10 @@ class User implements UserInterface
         $this->is_deleted = $is_deleted;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->email;
     }
 }
