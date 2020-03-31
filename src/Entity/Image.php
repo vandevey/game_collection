@@ -36,9 +36,9 @@ class Image
         return $this->key;
     }
 
-    public function setUrl(string $url): self
+    public function setUrl(string $key): self
     {
-        $this->key = $url;
+        $this->key = $key;
 
         return $this;
     }

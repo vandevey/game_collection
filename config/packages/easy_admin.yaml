@@ -5,7 +5,7 @@ easy_admin:
     entities:
         # List the entity class name you want to manage
         Ad:
-            class:  App\Entity\Ad
+            class:  App\Entity\ItemAd
         Item:
             class: App\Entity\Item
         Category:

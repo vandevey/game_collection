@@ -42,11 +42,6 @@ class Item
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ad", mappedBy="item")
-     */
-    private $ads;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="items")
      */
     private $author;
@@ -56,10 +51,15 @@ class Item
      */
     private $images;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Offer", mappedBy="item", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $offer;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
-        $this->ads = new ArrayCollection();
         $this->images = new ArrayCollection();
     }
 
@@ -133,34 +133,6 @@ class Item
         return $this;
     }
 
-    /**
-     * @return Collection|Ad[]
-     */
-    public function getAds(): Collection
-    {
-        return $this->ads;
-    }
-
-    public function addAd(Ad $ad): self
-    {
-        if (!$this->ads->contains($ad)) {
-            $this->ads[] = $ad;
-            $ad->addItem($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAd(Ad $ad): self
-    {
-        if ($this->ads->contains($ad)) {
-            $this->ads->removeElement($ad);
-            $ad->removeItem($this);
-        }
-
-        return $this;
-    }
-
     public function getAuthor(): ?User
     {
         return $this->author;
@@ -207,5 +179,27 @@ class Item
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getOffer(): ?Offer
+    {
+        return $this->offer;
+    }
+
+    public function setOffer(Offer $offer): self
+    {
+        $this->offer = $offer;
+
+        // set the owning side of the relation if necessary
+        if ($offer->getItem() !== $this) {
+            $offer->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function hasOffer()
+    {
+        return null === $this->offer;
     }
 }

@@ -24,30 +24,14 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Item", inversedBy="categories")
-     */
-    private $item;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="childrens")
-     */
-    private $parent;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="parent")
-     */
-    private $childrens;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $is_active;
 
-    public function __construct()
-    {
-        $this->item = new ArrayCollection();
-        $this->childrens = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Item", inversedBy="categories")
+     */
+    private $item;
 
     public function getId(): ?int
     {
@@ -66,77 +50,9 @@ class Category
         return $this;
     }
 
-    /**
-     * @return Collection|Item[]
-     */
-    public function getItem(): Collection
+    public function __toString()
     {
-        return $this->item;
-    }
-
-    public function addItem(Item $item): self
-    {
-        if (!$this->item->contains($item)) {
-            $this->item[] = $item;
-        }
-
-        return $this;
-    }
-
-    public function removeItem(Item $item): self
-    {
-        if ($this->item->contains($item)) {
-            $this->item->removeElement($item);
-        }
-
-        return $this;
-    }
-
-    public function getParent(): ?self
-    {
-        return $this->parent;
-    }
-
-    public function setParent(?self $parent): self
-    {
-        if ($parent->id === $this->id) {
-            return $this;
-        }
-
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|self[]
-     */
-    public function getChildrens(): Collection
-    {
-        return $this->childrens;
-    }
-
-    public function addChildren(self $children): self
-    {
-        if (!$this->childrens->contains($children)) {
-            $this->childrens[] = $children;
-            $children->setParent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeChildren(self $children): self
-    {
-        if ($this->childrens->contains($children)) {
-            $this->childrens->removeElement($children);
-            // set the owning side to null (unless already changed)
-            if ($children->getParent() === $this) {
-                $children->setParent(null);
-            }
-        }
-
-        return $this;
+        return $this->name;
     }
 
     public function getIsActive(): ?bool
@@ -149,10 +65,5 @@ class Category
         $this->is_active = $is_active;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->name;
     }
 }
