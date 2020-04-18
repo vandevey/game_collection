@@ -10,14 +10,14 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200331213155 extends AbstractMigration
+final class Version20200418140358 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
@@ -77,14 +77,14 @@ final class Version20200331213155 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_1FF134826593CE46 ON item_ad_like (item_ad_id)');
         $this->addSql('CREATE INDEX IDX_1FF13482F675F31B ON item_ad_like (author_id)');
         $this->addSql('DROP INDEX IDX_B6BD307F8829462F');
-        $this->addSql('DROP INDEX UNIQ_B6BD307FF675F31B');
+        $this->addSql('DROP INDEX IDX_B6BD307FF675F31B');
         $this->addSql('CREATE TEMPORARY TABLE __temp__message AS SELECT id, author_id, message_thread_id, content, created_at FROM message');
         $this->addSql('DROP TABLE message');
         $this->addSql('CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author_id INTEGER NOT NULL, message_thread_id INTEGER DEFAULT NULL, content VARCHAR(255) NOT NULL COLLATE BINARY, created_at DATETIME NOT NULL, CONSTRAINT FK_B6BD307FF675F31B FOREIGN KEY (author_id) REFERENCES user (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_B6BD307F8829462F FOREIGN KEY (message_thread_id) REFERENCES message_thread (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('INSERT INTO message (id, author_id, message_thread_id, content, created_at) SELECT id, author_id, message_thread_id, content, created_at FROM __temp__message');
         $this->addSql('DROP TABLE __temp__message');
         $this->addSql('CREATE INDEX IDX_B6BD307F8829462F ON message (message_thread_id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_B6BD307FF675F31B ON message (author_id)');
+        $this->addSql('CREATE INDEX IDX_B6BD307FF675F31B ON message (author_id)');
         $this->addSql('DROP INDEX IDX_607D18C6593CE46');
         $this->addSql('CREATE TEMPORARY TABLE __temp__message_thread AS SELECT id, item_ad_id, created_at, updated_at FROM message_thread');
         $this->addSql('DROP TABLE message_thread');
@@ -117,19 +117,9 @@ final class Version20200331213155 extends AbstractMigration
         $this->addSql('DROP TABLE __temp__score');
         $this->addSql('CREATE INDEX IDX_329937516593CE46 ON score (item_ad_id)');
         $this->addSql('CREATE INDEX IDX_32993751F675F31B ON score (author_id)');
-        $this->addSql('DROP INDEX IDX_8D93D649A5905F5A');
-        $this->addSql('DROP INDEX UNIQ_8D93D649E7927C74');
-        $this->addSql('CREATE TEMPORARY TABLE __temp__user AS SELECT id, messages_id, email, roles, password, pseudo, is_deleted FROM user');
-        $this->addSql('DROP TABLE user');
-        $this->addSql('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, messages_id INTEGER DEFAULT NULL, email VARCHAR(180) NOT NULL COLLATE BINARY, roles CLOB NOT NULL COLLATE BINARY --(DC2Type:json)
-        , password VARCHAR(255) NOT NULL COLLATE BINARY, pseudo VARCHAR(255) NOT NULL COLLATE BINARY, is_deleted BOOLEAN NOT NULL, CONSTRAINT FK_8D93D649A5905F5A FOREIGN KEY (messages_id) REFERENCES message (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
-        $this->addSql('INSERT INTO user (id, messages_id, email, roles, password, pseudo, is_deleted) SELECT id, messages_id, email, roles, password, pseudo, is_deleted FROM __temp__user');
-        $this->addSql('DROP TABLE __temp__user');
-        $this->addSql('CREATE INDEX IDX_8D93D649A5905F5A ON user (messages_id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649E7927C74 ON user (email)');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
@@ -188,14 +178,14 @@ final class Version20200331213155 extends AbstractMigration
         $this->addSql('DROP TABLE __temp__item_ad_like');
         $this->addSql('CREATE INDEX IDX_1FF13482F675F31B ON item_ad_like (author_id)');
         $this->addSql('CREATE INDEX IDX_1FF134826593CE46 ON item_ad_like (item_ad_id)');
-        $this->addSql('DROP INDEX UNIQ_B6BD307FF675F31B');
+        $this->addSql('DROP INDEX IDX_B6BD307FF675F31B');
         $this->addSql('DROP INDEX IDX_B6BD307F8829462F');
         $this->addSql('CREATE TEMPORARY TABLE __temp__message AS SELECT id, author_id, message_thread_id, content, created_at FROM message');
         $this->addSql('DROP TABLE message');
         $this->addSql('CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author_id INTEGER NOT NULL, message_thread_id INTEGER DEFAULT NULL, content VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL)');
         $this->addSql('INSERT INTO message (id, author_id, message_thread_id, content, created_at) SELECT id, author_id, message_thread_id, content, created_at FROM __temp__message');
         $this->addSql('DROP TABLE __temp__message');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_B6BD307FF675F31B ON message (author_id)');
+        $this->addSql('CREATE INDEX IDX_B6BD307FF675F31B ON message (author_id)');
         $this->addSql('CREATE INDEX IDX_B6BD307F8829462F ON message (message_thread_id)');
         $this->addSql('DROP INDEX IDX_607D18C6593CE46');
         $this->addSql('CREATE TEMPORARY TABLE __temp__message_thread AS SELECT id, item_ad_id, created_at, updated_at FROM message_thread');
@@ -229,15 +219,5 @@ final class Version20200331213155 extends AbstractMigration
         $this->addSql('DROP TABLE __temp__score');
         $this->addSql('CREATE INDEX IDX_32993751F675F31B ON score (author_id)');
         $this->addSql('CREATE INDEX IDX_329937516593CE46 ON score (item_ad_id)');
-        $this->addSql('DROP INDEX UNIQ_8D93D649E7927C74');
-        $this->addSql('DROP INDEX IDX_8D93D649A5905F5A');
-        $this->addSql('CREATE TEMPORARY TABLE __temp__user AS SELECT id, messages_id, email, roles, password, pseudo, is_deleted FROM user');
-        $this->addSql('DROP TABLE user');
-        $this->addSql('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, messages_id INTEGER DEFAULT NULL, email VARCHAR(180) NOT NULL, roles CLOB NOT NULL --(DC2Type:json)
-        , password VARCHAR(255) NOT NULL, pseudo VARCHAR(255) NOT NULL, is_deleted BOOLEAN NOT NULL)');
-        $this->addSql('INSERT INTO user (id, messages_id, email, roles, password, pseudo, is_deleted) SELECT id, messages_id, email, roles, password, pseudo, is_deleted FROM __temp__user');
-        $this->addSql('DROP TABLE __temp__user');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649E7927C74 ON user (email)');
-        $this->addSql('CREATE INDEX IDX_8D93D649A5905F5A ON user (messages_id)');
     }
 }
