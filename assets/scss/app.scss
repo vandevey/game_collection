@@ -1,6 +1,8 @@
-@import 'colors.scss';
-@import 'vars.scss';
-@import 'fonts.scss';
+@import 'colors';
+@import 'vars';
+@import 'fonts';
+
+@import "form";
 
 body {
     padding: 0;
@@ -117,11 +119,11 @@ body {
             color: $bg-complementary;
 
             &#header-logout {
-                background-color: #E12121;
+                background-color: $red;
             }
 
             &#header-signin {
-                background: #06A829;
+                background: $green;
             }
 
             cursor: pointer;
