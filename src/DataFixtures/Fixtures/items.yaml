@@ -1,0 +1,7 @@
+data:
+  ori_bf:
+    name: 'Ori and The Blind Forest'
+    description: 'Plateform game'
+    ref:
+      author: johndoe
+      categories: [ metroidvania, adventure ]

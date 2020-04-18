@@ -1,0 +1,30 @@
+data:
+  strategy:
+    name: 'Strategy'
+    is_active: true
+  war:
+    name: 'War'
+    is_active: true
+  racing:
+    name: 'Racing'
+    is_active: true
+  rpg:
+    name: 'Rpg'
+    is_active: true
+  sport:
+    name: 'Sport'
+    is_active: true
+  moba:
+    name: 'Moba'
+    is_active: true
+  platform:
+    name: 'Platform'
+    is_active: true
+  adventure:
+    name: 'Adventure'
+    is_active: true
+  metroidvania:
+    name: 'Metroidvania'
+    is_active: true
+  roleplay:
+    name: 'Role-Playing'
