@@ -22,6 +22,12 @@ class RoleManager
         return self::ROLE_PREFIX . self::DEFAULT;
     }
 
+    /**
+     * Get formatted role
+     *
+     * @param string $role
+     * @return string
+     */
     public function getRole(string $role)
     {
         if (!$this->roleExist($role)) {
@@ -31,6 +37,13 @@ class RoleManager
         return self::ROLE_PREFIX . $role;
     }
 
+    /**
+     * Get role as array
+     * This method is useful for User class that need an array in the role setter
+     *
+     * @param $role
+     * @return array
+     */
     public function getRoles($role): array
     {
         if (\is_array($role)) {

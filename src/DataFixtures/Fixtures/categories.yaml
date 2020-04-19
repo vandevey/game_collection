@@ -1,0 +1,25 @@
+data:
+  strategy:
+    name: 'Strategy'
+  war:
+    name: 'War'
+  racing:
+    name: 'Racing'
+  rpg:
+    name: 'Rpg'
+  sport:
+    name: 'Sport'
+  moba:
+    name: 'Moba'
+  platform:
+    name: 'Platform'
+  adventure:
+    name: 'Adventure'
+  metroidvania:
+    name: 'Metroidvania'
+  roleplay:
+    name: 'Role-Playing'
+  action:
+    name: 'Action'
+  science_fiction:
+    name: 'Science Fiction'
