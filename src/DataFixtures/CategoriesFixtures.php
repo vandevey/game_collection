@@ -9,14 +9,19 @@ use Doctrine\Persistence\ObjectManager;
 
 class CategoriesFixtures extends AbstractFixtures
 {
-    protected $referenceKey = 'categories';
+    /**
+     * File fixture name
+     *
+     * @var string
+     */
+    const RESOURCE_NAME = 'categories';
 
     /**
      * @inheritDoc
      */
     public function load(ObjectManager $manager)
     {
-        $categories = $this->fixtureLoader->load('categories');
+        $categories = $this->fixtureLoader->load(self::RESOURCE_NAME);
 
         foreach ($categories['data'] as $ref => $categoryData) {
             $category = $this->denormilazer->denormalize($categoryData, Category::class);

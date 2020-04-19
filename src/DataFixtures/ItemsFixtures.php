@@ -12,19 +12,30 @@ class ItemsFixtures extends AbstractFixtures implements DependentFixtureInterfac
 {
 
     /**
+     * File fixture name
+     *
+     * @var string
+     */
+    const RESOURCE_NAME = 'items';
+
+    /**
      * @inheritDoc
      */
     public function load(ObjectManager $manager)
     {
-        $items = $this->fixtureLoader->load('items');
+        $items = $this->fixtureLoader->load(self::RESOURCE_NAME);
 
         foreach ($items['data'] as $itemData) {
             /** @var Item $item */
             $item = $this->denormilazer->denormalize($itemData, Item::class);
-            $item->setAuthor($this->getReference($itemData['ref']['author']));
+            $item->setAuthor(
+                $this->getReference($itemData['ref']['author'])
+            );
 
             foreach ($itemData['ref']['categories'] as $category) {
-                $item->addCategory($this->getReference($category));
+                $item->addCategory(
+                    $this->getReference($category)
+                );
             }
 
             dd($item);

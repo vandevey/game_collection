@@ -8,4 +8,4 @@ data:
     email: 'jane.doe@email.com'
     roles: [ USER, COLLECTOR ]
     pseudo: 'Jane Doe'
-    password: 'ja.doe'
+    password: 'ja.doe' # password will be encoded

@@ -28,18 +28,32 @@ class FixtureLoader
             return null;
         }
 
-        $resource .= isset($resource['extension']) ? '' : '.' . self::EXTENSION;
-        $resourcePath = self::FIXTURE_DIR . $resource;
+        // ensure that resource have an extension before do the file research
+        $resource .= isset(pathinfo($resource)['extension']) ? '' : '.' . self::EXTENSION;
+        $resourcePath = self::FIXTURE_DIR . $resource; // get fixture file path
 
-        return Yaml::parse(file_get_contents($resourcePath));
+        return Yaml::parse(file_get_contents($resourcePath)); // return an array from yaml format
+    }
+
+    /**
+     * Add fixture to the static list
+     *
+     * @warning use this method can affect fixtures list visibility,
+     *          determined your need before using it.
+     *
+     * @param string $name
+     */
+    public function addFixtures(string $name)
+    {
+        self::$fixtures[] = $name;
+        self::$fixtures = array_unique(self::$fixtures); // to ensure that data aren't duplicated
     }
 
     /**
      * @param $resource
-     * @param string|null $type
      * @return bool
      */
-    public function supports($resource, string $type = null)
+    public function supports($resource)
     {
         return is_string($resource) && \in_array($resource, self::$fixtures);
     }

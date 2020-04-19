@@ -12,7 +12,12 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class UserFixtures extends AbstractFixtures implements ReferenceAliasFixtureInterface
 {
 
-    protected $referenceKey = 'users';
+    /**
+     * File fixture name
+     *
+     * @var string
+     */
+    const RESOURCE_NAME = 'users';
 
     /** @var UserPasswordEncoderInterface */
     private $encoder;
@@ -28,30 +33,18 @@ class UserFixtures extends AbstractFixtures implements ReferenceAliasFixtureInte
      */
     function load(ObjectManager $manager)
     {
-//        $users = $this->fixtureLoader->load('users');
-//
-//        foreach ($users['data'] as $ref => $userData) {
-//            /** @var User $user */
-//            $user = $this->denormilazer->denormalize($userData, User::class);
-//            $password = $this->encoder->encodePassword($user, $user->getPassword());
-//            $user->setPassword($password);
-//            $manager->persist($user);
-//
-//            $this->addReference($ref, $user);
-//        }
+        $users = $this->fixtureLoader->load(self::RESOURCE_NAME);
 
-        $user = new User();
-        $user
-            ->setEmail('john.doe@email.com')
-            ->setPassword(
-                $this->encoder->encodePassword($user, 'jo.doe')
-            )
-            ->setPseudo('John Doe')
-            ->setIsDeleted(false)
-            ->setRoles(['USER']);
+        foreach ($users['data'] as $ref => $userData) {
+            /** @var User $user */
+            $user = $this->denormilazer->denormalize($userData, User::class);
+            $password = $this->encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+            $manager->persist($user);
 
-        $manager->persist($user);
-        $this->addReference('johndoe', $user);
+            $this->addReference($ref, $user);
+        }
+
         $manager->flush();
     }
 
