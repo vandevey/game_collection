@@ -22,6 +22,15 @@ class RoleManager
         return self::ROLE_PREFIX . self::DEFAULT;
     }
 
+    public function getRole(string $role)
+    {
+        if (!$this->roleExist($role)) {
+            return $this->getDefaultRole();
+        }
+
+        return self::ROLE_PREFIX . $role;
+    }
+
     public function getRoles($role): array
     {
         if (\is_array($role)) {

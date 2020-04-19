@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Profil;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationFormType extends AbstractType
+class ProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,29 +21,23 @@ class RegistrationFormType extends AbstractType
                 'required' => true,
                 'label' => 'Username',
             ])
-            ->add('email')
-//            ->add('agreeTerms', CheckboxType::class, [
-//                'mapped' => false,
-//                'constraints' => [
-//                    new IsTrue([
-//                        'message' => 'You should agree to our terms.',
-//                    ]),
-//                ],
-//            ])
-            ->add('password', RepeatedType::class, [
-                "type" => PasswordType::class,
-                "required" => true,
-                'invalid_message' => 'The password fields must match.',
-                "first_options" => ["label" => "Password"],
-                "second_options" => ["label" => "Confirm Password"],
-                'error_mapping' => [
-                    '.' => 'second'
-                ],
+            ->add('oldPassword', PasswordType::class, [
+                'label' => 'Current Password',
+                'required' => false,
                 'mapped' => false,
+            ])
+            ->add('newPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'required' => false,
+                'mapped' => false,
+                'invalid_message' => 'The password fields must match.',
+                'first_options' => [
+                    'label' => 'New Password'
+                ],
+                'second_options' => [
+                    'label' => 'Confirm Password'
+                ],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'You must enter a password',
-                    ]),
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
@@ -52,7 +46,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-        ;
+            ->add('submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

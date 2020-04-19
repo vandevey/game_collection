@@ -13,7 +13,7 @@ class ProfilController extends AbstractController
 {
 
     /**
-     * @Route("/profil/{pseudo}", name="show_profil")
+     * @Route("/profil/{id}", name="show_profil")
      *
      * @param User $user
      * @return Response

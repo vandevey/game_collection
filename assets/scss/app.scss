@@ -1,11 +1,15 @@
-@import 'colors.scss';
-@import 'vars.scss';
-@import 'fonts.scss';
+@import 'colors';
+@import 'vars';
+@import 'fonts';
+
+@import "form";
+@import "sign";
 
 body {
-    padding: 0;
-    margin: 0;
-    background-color: $bg-color;
+  padding: 0;
+  margin: 0;
+  background-color: $primary;
+  color: $primary;
 }
 
 #header {
@@ -71,60 +75,60 @@ body {
             display: flex;
             align-items: center;
             #header-username {
-                width: 115px;
-                height: 24px;
-                background-color: $bg-complementary;
-                color: $bg-color;
+              width: 115px;
+              height: 24px;
+              background-color: $complementary;
+              color: $primary;
 
-                padding: 5px 15px;
-                border-radius: 0 0 0 10px;
+              padding: 5px 15px;
+              border-radius: 0 0 0 10px;
 
-                text-align: center;
+              text-align: center;
             }
 
             #header-login-avatar {
-                margin: {
-                    left: -15px;
-                }
+              margin: {
+                left: -15px;
+              }
+              width: 48px;
+              height: 48px;
+              background-color: $complementary;
+              border-radius: 50%;
+
+              img {
                 width: 48px;
                 height: 48px;
-                background-color: $bg-complementary;
-                border-radius: 50%;
+              }
 
-                img {
-                    width: 48px;
-                    height: 48px;
-                }
-
-                text-align: center;
-                overflow: hidden;
+              text-align: center;
+              overflow: hidden;
             }
         }
 
         .header-sign {
             z-index: 1;
             padding: 5px 10px;
-            margin: {
-                top: -10px;
-                right: -20px;
-            };
-            width: 110px;
+          margin: {
+            top: -10px;
+            right: -20px;
+          };
+          width: 110px;
 
-            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-            border-radius: 0 0 10px 10px;
+          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+          border-radius: 0 0 10px 10px;
 
-            text-align: center;
-            color: $bg-complementary;
+          text-align: center;
+          color: $complementary;
 
-            &#header-logout {
-                background-color: #E12121;
-            }
+          &#header-logout {
+            background-color: $red;
+          }
 
-            &#header-signin {
-                background: #06A829;
-            }
+          &#header-signin {
+            background: $green;
+          }
 
-            cursor: pointer;
+          cursor: pointer;
         }
 
     }
@@ -136,12 +140,12 @@ body {
 }
 
 #user-add {
-    // temp
-    position: absolute;
-    bottom: 0;
-    height: 500px;
-    // temp
-    background-color: $bg-complementary;
-    width: 100vw;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  // temp
+  position: absolute;
+  bottom: 0;
+  height: 500px;
+  // temp
+  background-color: $complementary;
+  width: 100vw;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
