@@ -1,7 +1,31 @@
 data:
   ori_bf:
     name: 'Ori and The Blind Forest'
-    description: 'Plateform game'
+    description: "Ori is the titular character and main protagonist of Ori and the Blind Forest. A Spirit Guardian who becomes separated from their biological and adoptive family, Ori is thrust into a journey to save the forest of Nibel from a dangerous decay spreading throughout the land"
     ref:
       author: johndoe
-      categories: [ metroidvania, adventure ]
+      categories: [ metroidvania, adventure, platform ]
+  ori_ww:
+    name: 'Ori and the Will Wisp'
+    description: "Ori and the Will of the Wisps is the sequel to Moon Studio's original title: Ori and the Blind Forest. The famous character accompanied by his precious allies sets off on an adventure for new hours of wonder and danger."
+    ref:
+      author: johndoe
+      categories: [ metroidvania, adventure, platform ]
+  zelda_botw:
+    name: "Zelda Breath of the Wild"
+    description: "He meets an old man who turns out to be the spirit of King Rhoam. The latter explains to him that Zelda, locked up in Hyrule Castle, is fighting alone Ganon, The Scourge, and asks him to go and fight him, before he frees himself and destroys the world."
+    ref:
+      author: janedoe
+      categories: [ action, adventure ]
+  god_of_war:
+    name: "God of War"
+    description: "The story of the God of War series takes place in the world of Greek mythology, in the time of the gods of Olympus, and tells the story of Kratos, a mere mortal, elevated to the rank of god. Born in Sparta, Kratos became a feared warrior leader."
+    ref:
+      author: janedoe
+      categories: [ action, adventure ]
+  starwars_lego:
+    name: "LEGO Star Wars"
+    description: "Lego Star Wars is a collection of Lego toys on the theme of the Star Wars movie saga. The original license was signed from 1999 to 2008. Then The Lego Group extended the license with Lucasfilm several times until 2011 and 2016. In 2012, an arrangement was made between the two companies to extend it for another ten years."
+    ref:
+      author: janedoe
+      categories: [ action, adventure ]

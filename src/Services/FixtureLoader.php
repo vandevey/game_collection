@@ -26,7 +26,7 @@ class FixtureLoader
         $resource .= isset(pathinfo($resource)['extension']) ? '' : '.' . self::EXTENSION;
         $resourcePath = self::FIXTURE_DIR . $resource; // get fixture file path
 
-        if (!$this->supports($resource)) {
+        if (!$this->supports($resourcePath)) {
             return null;
         }
 

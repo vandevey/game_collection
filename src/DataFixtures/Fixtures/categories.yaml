@@ -19,3 +19,7 @@ data:
     name: 'Metroidvania'
   roleplay:
     name: 'Role-Playing'
+  action:
+    name: 'Action'
+  science_fiction:
+    name: 'Science Fiction'
