@@ -2,31 +2,55 @@ input[type=text], input[type=password],
 input[type=email] {
   border: none;
 
-  padding: 5px;
+  padding: 8px;
   margin: 2px;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-button[type=submit],
-input[type=submit] {
-  border: none;
-
-  border-radius: 7px;
-  padding: 8px 15px;
-  background-color: $green;
-  color: white;
-
-  cursor: pointer;
+input:focus, input:active {
+  outline-color: $primary;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-form .col > div {
-  display: flex;
-  flex-direction: column;
-  flex: 2;
+label {
+  font-size: $fs-24;
+}
+
+.btn {
+  border: none;
+
+  border-radius: $br-button;
+  padding: 8px 25px;
+  cursor: pointer;
+
+  &.btn-bg--dark {
+    background-color: $primary;
+    color: white;
+  }
+
+  &.btn-bg--light {
+    background-color: $green;
+    color: white;
+  }
+
+  &:active, &:focus {
+    outline: none;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+  }
+}
+
+a.btn {
+  text-decoration: none;
 }
 
 #user-detail {
   label {
     color: white;
+  }
+
+  form .col > div {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
   }
 }
