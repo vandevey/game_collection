@@ -27,7 +27,7 @@ class Message
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="message", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="message")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;

@@ -9,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
-class UserFixtures extends AbstractFixtures implements ReferenceAliasFixtureInterface
+class UserFixtures extends AbstractFixtures
 {
 
     /**
@@ -46,12 +46,5 @@ class UserFixtures extends AbstractFixtures implements ReferenceAliasFixtureInte
         }
 
         $manager->flush();
-    }
-
-    public function getReferenceAlias(): array
-    {
-        return [
-            'author'
-        ];
     }
 }

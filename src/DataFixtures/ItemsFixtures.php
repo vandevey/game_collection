@@ -38,7 +38,9 @@ class ItemsFixtures extends AbstractFixtures implements DependentFixtureInterfac
                 );
             }
 
-            dd($item);
+            $item->setCreatedAt();
+            $item->setUpdatedAt();
+
             $manager->persist($item);
         }
 
