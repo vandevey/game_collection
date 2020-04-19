@@ -1,0 +1,35 @@
+{% extends 'views/base.html.twig' %}
+
+{% block title %}Sign{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block body %}
+    <section id="sign">
+        <div id="sign-choice">
+            <div id="sign-in" class="sign-menu" data-enable='{% block sign_in_enable %}1{% endblock %}'>
+                <a href="{{ path('app_login') }}">
+                    <p>{{ 'Sign in'|trans }}</p>
+                </a>
+            </div>
+            <div id="sign-up" class="sign-menu" data-enable='{% block sign_up_enable %}0{% endblock %}'>
+                <a href="{{ path('app_register') }}">
+                    <p>{{ 'Sign up'|trans }}</p>
+                </a>
+            </div>
+        </div>
+
+        <div id="sign-form">
+            <div id="sign-input">
+                {% block form %}{% endblock %}
+            </div>
+
+            <div id="sign-button">
+                <a href="{{ path('show_profil', {id: 2}) }}" class="btn btn-bg--dark">Cancel</a>
+                {% block submit_button %}{% endblock %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+

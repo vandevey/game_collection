@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Action;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
-class RegistrationController extends AbstractController
+class RegistrationAction extends AbstractController
 {
     /**
      * @Route("/register", name="app_register")
@@ -34,7 +34,7 @@ class RegistrationController extends AbstractController
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('password')->getData()
                 )
             );
 
@@ -52,7 +52,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('views/account/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

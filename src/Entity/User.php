@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Services\RoleManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -54,22 +55,25 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Score", mappedBy="author")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $scores;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ItemAd", mappedBy="author")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $itemAds;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="author")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="author")
      * @ORM\JoinColumn(nullable=true)
      */
     private $messages;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ItemAdLike", mappedBy="author")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $itemAdLikes;
 
@@ -115,15 +119,17 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // guarantee every user at least has Default Role
+        $roleManager = new RoleManager();
+        $roles[] = $roleManager->getDefaultRole();
 
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        $roleManager = new RoleManager();
+        $this->roles = $roleManager->getRoles($roles);
 
         return $this;
     }
