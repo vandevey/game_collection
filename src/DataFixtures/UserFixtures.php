@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use App\Services\FixtureLoader;
+use App\Services\GameApi;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -22,10 +23,10 @@ class UserFixtures extends AbstractFixtures
     /** @var UserPasswordEncoderInterface */
     private $encoder;
 
-    public function __construct(UserPasswordEncoderInterface $encoder, FixtureLoader $fixtureLoader, DenormalizerInterface $denormalizer)
+    public function __construct(UserPasswordEncoderInterface $encoder, FixtureLoader $fixtureLoader, DenormalizerInterface $denormalizer, GameApi $gameApi)
     {
         $this->encoder = $encoder;
-        parent::__construct($fixtureLoader, $denormalizer);
+        parent::__construct($fixtureLoader, $denormalizer, $gameApi);
     }
 
     /**
