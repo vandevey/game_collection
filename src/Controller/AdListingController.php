@@ -1,10 +1,9 @@
 <?php
 
-
 namespace App\Controller;
 
 
-use App\Entity\Item;
+use App\Entity\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,9 +21,9 @@ class AdListingController extends AbstractController
      */
     public function request(EntityManagerInterface $entityManager)
     {
-        $items = $entityManager->getRepository(Item::class)->findAll();
+        $request = $entityManager->getRepository(Request::class)->findAll();
 
-        dd($items[0]->getImages()->first());
+        dd($request);
     }
 
     /**
