@@ -40,12 +40,12 @@ class Offer
 
     public function getPrice(): ?int
     {
-        return $this->price;
+        return $this->price / 100;
     }
 
     public function setPrice(int $price): self
     {
-        $this->price = $price;
+        $this->price = $price * 100;
 
         return $this;
     }

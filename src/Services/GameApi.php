@@ -10,12 +10,6 @@ class GameApi
     private const ENV_USER_KEY = 'IGDB_USER_KEY';
     private const ENV_URL_REQUEST = 'IGDB_REQUEST_URL';
 
-    public function getGenres()
-    {
-        $body = $this->buildBody(['name']);
-        return $this->get('genres', $body);
-    }
-
     private function buildBody($fields = ['*'], $limit = 500, $where = null)
     {
         $bodyQuery = $this->buildBodyQuery('fields', implode(',', $fields));
@@ -59,6 +53,24 @@ class GameApi
             ],
             'body' => $body
         ];
+    }
+
+    public function getGenres()
+    {
+        $body = $this->buildBody(['name']);
+        return $this->get('genres', $body);
+    }
+
+    public function getPlateforms()
+    {
+        $body = $this->buildBody(['name', 'summary', 'category', 'platform_logo']);
+        return $this->get('platforms', $body);
+    }
+
+    public function getPlateformLogo($id)
+    {
+        $body = $this->buildBody(['url'], 1, "id = {$id}");
+        return $this->get('platform_logos', $body);
     }
 
     public function getGames()

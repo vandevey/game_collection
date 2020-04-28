@@ -12,8 +12,9 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 abstract class AbstractFixtures extends Fixture
 {
-
+    /** @var array */
     private static $TEMP_DATA = [];
+    protected $resourceName;
 
     /** @var FixtureLoader */
     protected $fixtureLoader;
@@ -29,6 +30,11 @@ abstract class AbstractFixtures extends Fixture
         $this->gameApi = $gameApi;
     }
 
+    /**
+     * @inheritDoc
+     */
+    abstract function load(ObjectManager $manager);
+
     public function addTempData(string $entity, $data)
     {
         self::$TEMP_DATA[$entity][] = $data;
@@ -40,7 +46,17 @@ abstract class AbstractFixtures extends Fixture
     }
 
     /**
-     * @inheritDoc
+     * @param $key
+     * @param string|null $resource
+     * @return string
      */
-    abstract function load(ObjectManager $manager);
+    protected function buildReferenceName($key, string $resource = null)
+    {
+        if (\is_array($key)) {
+            $key = implode('.', $key);
+        }
+
+        $resource = $resource ?? $this->resourceName;
+        return sprintf('%s.%s', $resource, $key);
+    }
 }

@@ -18,50 +18,91 @@ class ItemsFixtures extends AbstractFixtures implements DependentFixtureInterfac
      * @var string
      */
     const RESOURCE_NAME = 'items';
+    public const PLATFORMS_REF = 'platforms';
+    public const GAMES_REF = 'games';
+    protected $resourceName = self::RESOURCE_NAME;
+
+    public static $TOTAL_ITEMS = 0;
 
     /**
      * @inheritDoc
      */
     public function load(ObjectManager $manager)
     {
-        $items = $this->gameApi->getGames();
+        $items = [
+            self::GAMES_REF => $this->gameApi->getGames(),
+            self::PLATFORMS_REF => $this->gameApi->getPlateforms(),
+        ];
 
-        foreach ($items as $itemData) {
-            /** @var Item $item */
-            $item = $this->denormilazer->denormalize($itemData, Item::class);
-            if (!isset($itemData->summary)) {
-                continue;
-            }
+        foreach ($items as $itemsType) {
+            foreach ($itemsType as $ref => $itemData) {
+                if (!isset($itemData->summary)) {
+                    continue;
+                }
+                /** @var Item $item */
+                $item = new Item();
+                $item->setName($itemData->name);
+                $item->setDescription($itemData->summary);
+                $item->setAuthor(
+                    $this->getReference($this->buildReferenceName(rand(1, 2), UserFixtures::RESOURCE_NAME))
+                );
 
-            $item->setDescription($itemData->summary);
-            $item->setAuthor(
-                $this->getReference(UserFixtures::RESOURCE_NAME . rand(1, 2))
-            );
-
-            if (isset($itemData->genres)) {
-                foreach ($itemData->genres as $categoryId) {
+                if (isset($itemData->genres)) {
+                    foreach ($itemData->genres as $categoryId) {
+                        try {
+                            $item->addCategory(
+                                $this->getReference(
+                                    $this->buildReferenceName($categoryId, CategoriesFixtures::RESOURCE_NAME)
+                                )
+                            );
+                        } catch (\Exception $e) {
+                        }
+                    }
+                } else if (isset($itemData->category)) {
                     try {
+                        $refCat = CategoriesFixtures::PLATEFORM_CATEGORY_MAPPING[$itemData->category];
                         $item->addCategory(
-                            $this->getReference(CategoriesFixtures::RESOURCE_NAME . $categoryId)
+                            $this->getReference(
+                                $this->buildReferenceName($refCat, CategoriesFixtures::RESOURCE_NAME)
+                            )
                         );
                     } catch (\Exception $e) {
                     }
+                } else {
+                    $item->addCategory(
+                        $this->getReference(
+                            $this->buildReferenceName(
+                                CategoriesFixtures::DEFAULT_REF,
+                                CategoriesFixtures::RESOURCE_NAME
+                            )
+                        )
+                    );
                 }
-            } else {
-                $item->addCategory($this->getReference(CategoriesFixtures::DEFAULT_CATEGORY));
+
+                $item->setCreatedAt();
+                $item->setUpdatedAt();
+
+                $manager->persist($item);
+
+                if (isset($itemData->cover)) {
+                    $coverUrl = $this->gameApi->getCover($itemData->cover);
+                    $this->addTempData(
+                        Item::class,
+                        ['refId' => $ref . '.' . $itemData->id, 'url' => $coverUrl[0]->url]
+                    );
+                } else if (isset($itemData->platform_logo)) {
+                    $coverUrl = $this->gameApi->getPlateformLogo($itemData->platform_logo);
+                    $this->addTempData(
+                        Item::class,
+                        ['refId' => $ref . '.' . $itemData->id, 'url' => $coverUrl[0]->url]
+                    );
+                }
+
+                self::$TOTAL_ITEMS += 1;
+                $this->addReference($this->buildReferenceName([$ref, $itemData->id]), $item);
             }
-
-            $item->setCreatedAt();
-            $item->setUpdatedAt();
-
-            $manager->persist($item);
-            if (isset($itemData->cover)) {
-                $coverUrl = $this->gameApi->getCover($itemData->cover);
-                $this->addTempData(Item::class, ['refId' => $itemData->id, 'url' => $coverUrl[0]->url]);
-            }
-
-            $this->addReference(self::RESOURCE_NAME . $itemData->id, $item);
         }
+        unset($itemsType, $itemData, $items);
 
         $manager->flush();
     }

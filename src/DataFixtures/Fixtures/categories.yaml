@@ -1,25 +1,47 @@
 data:
-  strategy:
-    name: 'Strategy'
-  war:
-    name: 'War'
-  racing:
-    name: 'Racing'
-  rpg:
-    name: 'Rpg'
-  sport:
-    name: 'Sport'
-  moba:
-    name: 'Moba'
-  platform:
-    name: 'Platform'
-  adventure:
-    name: 'Adventure'
-  metroidvania:
-    name: 'Metroidvania'
-  roleplay:
-    name: 'Role-Playing'
-  action:
-    name: 'Action'
-  science_fiction:
-    name: 'Science Fiction'
+  #parent categories
+  default:
+    name: 'Default'
+  genres:
+    name: 'Genres'
+  platforms:
+    name: 'Plateforms'
+    child:
+      console:
+        name: 'Console'
+      arcade:
+        name: 'Arcade'
+      platform:
+        name: 'Plateform'
+      operating_system:
+        name: 'Operating System'
+      protable_console:
+        name: 'Portable Console'
+      computer:
+        name: 'Computer'
+
+  # chidlren categories
+#  strategy:
+#    name: 'Strategy'
+#  war:
+#    name: 'War'
+#  racing:
+#    name: 'Racing'
+#  rpg:
+#    name: 'Rpg'
+#  sport:
+#    name: 'Sport'
+#  moba:
+#    name: 'Moba'
+#  platform:
+#    name: 'Platform'
+#  adventure:
+#    name: 'Adventure'
+#  metroidvania:
+#    name: 'Metroidvania'
+#  roleplay:
+#    name: 'Role-Playing'
+#  action:
+#    name: 'Action'
+#  science_fiction:
+#    name: 'Science Fiction'

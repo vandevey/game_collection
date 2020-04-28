@@ -72,24 +72,24 @@ class Request
 
     public function getMinPrice(): ?int
     {
-        return $this->minPrice;
+        return $this->minPrice / 100;
     }
 
     public function setMinPrice(int $minPrice): self
     {
-        $this->minPrice = $minPrice;
+        $this->minPrice = $minPrice * 100;
 
         return $this;
     }
 
     public function getMaxPrice(): ?int
     {
-        return $this->maxPrice;
+        return $this->maxPrice / 100;
     }
 
     public function setMaxPrice(?int $maxPrice): self
     {
-        $this->maxPrice = $maxPrice;
+        $this->maxPrice = $maxPrice * 100;
 
         return $this;
     }

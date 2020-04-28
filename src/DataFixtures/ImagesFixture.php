@@ -35,14 +35,20 @@ class ImagesFixture extends AbstractFixtures implements DependentFixtureInterfac
     function load(ObjectManager $manager)
     {
         $tempItems = $this->getTempData(Item::class);
-
         foreach ($tempItems as $tempItem) {
             if (!($imageName = $this->imageManager->download($tempItem['url'], $tempItem['refId'], 'items'))) {
                 continue;
             }
             $image = new Image();
-            $image->setItem($this->getReference(ItemsFixtures::RESOURCE_NAME . $tempItem['refId']));
-            $image->setUrl($imageName);
+            $image->setItem(
+                $this->getReference(
+                    $this->buildReferenceName($tempItem['refId'], ItemsFixtures::RESOURCE_NAME)
+                )
+            );
+
+            $imageNameParts = pathinfo($imageName);
+            $image->setKey($imageNameParts['filename']);
+            $image->setExtension($imageNameParts['extension']);
 
             $manager->persist($image);
         }
