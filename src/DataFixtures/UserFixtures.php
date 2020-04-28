@@ -19,6 +19,7 @@ class UserFixtures extends AbstractFixtures
      * @var string
      */
     const RESOURCE_NAME = 'users';
+    protected $resourceName = self::RESOURCE_NAME;
 
     /** @var UserPasswordEncoderInterface */
     private $encoder;

@@ -26,17 +26,22 @@ class Image
      */
     private $item;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $extension;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUrl(): ?string
+    public function getKey(): ?string
     {
         return $this->key;
     }
 
-    public function setUrl(string $key): self
+    public function setKey(string $key): self
     {
         $this->key = $key;
 
@@ -51,6 +56,18 @@ class Image
     public function setItem(?Item $item): self
     {
         $this->item = $item;
+
+        return $this;
+    }
+
+    public function getExtension(): ?string
+    {
+        return $this->extension;
+    }
+
+    public function setExtension(string $extension): self
+    {
+        $this->extension = $extension;
 
         return $this;
     }
