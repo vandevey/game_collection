@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+use App\Entity\ItemAd;
 use App\Entity\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +14,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdListingController extends AbstractController
 {
+     /**
+     * @Route("/", name="show_all")
+     * @param EntityManagerInterface $entityManager
+     */
+    public function all(EntityManagerInterface $entityManager)
+    {
+        $all = $entityManager->getRepository(ItemAd::class)->getAllRecent();
+     
+        return $this->render('views/home/listing.html.twig', [
+            'all' => $all,
+        ]);
+       
+     
+    }
 
     /**
      * @Route("/request", name="show_request")
@@ -23,7 +37,12 @@ class AdListingController extends AbstractController
     {
         $request = $entityManager->getRepository(Request::class)->findAll();
 
-        dd($request);
+        //dd($request);
+        return $this->render('views/home/request.html.twig', [
+            'requests' => $request,
+        ]);
+       
+    
     }
 
     /**
@@ -31,7 +50,7 @@ class AdListingController extends AbstractController
      */
     public function offer()
     {
-
+       
     }
 
 }

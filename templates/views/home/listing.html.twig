@@ -1,0 +1,24 @@
+{% extends 'views/base.html.twig' %}
+
+{% block body %}
+	<section>
+		{% if all %}
+			<ul>
+				{% for item in all %}
+					<pre>
+                        {{ dump(item) }}
+                    </pre>
+
+					{% if item.is_visible %}
+						<li class="{{ item.isOffer() ? 'Request' : 'Offer'}}">
+							<h3>{{item.title}}</h3>
+							<p>{{item.description}}</p>
+						</li>
+					{% endif %}
+
+
+				{% endfor %}}
+			</ul>
+		{% endif %}
+	</section>
+{% endblock %}
