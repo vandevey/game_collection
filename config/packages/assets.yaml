@@ -3,4 +3,4 @@ framework:
     json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'
     packages:
       image:
-        base_path: '%kernel.project_dir%/public/build/images/'
+        base_path: '/build/images/'
