@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Mime\MimeTypes;
@@ -40,7 +41,7 @@ class ImageManager
      * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function download(string $url, int $id, string $dir = '')
+    public function download(string $url, int $id, string $dir = null): string
     {
         try {
             $client = HttpClient::create();
@@ -48,7 +49,7 @@ class ImageManager
 
             $imageData = $response->getContent();
             $ext = $this->mimeTypes->getExtensions($response->getInfo('content_type'));
-            $imagePath = sprintf('%s/%s/%s/%s.%s', $this->rootDir, self::IMAGE_DIR, $dir, $id, $ext[0]);
+            $imagePath = $this->getPath($id, $ext[0], $dir, true);
             $this->fileSystem->dumpFile($imagePath, $imageData);
 
             return basename($imagePath);
@@ -56,5 +57,40 @@ class ImageManager
         }
 
         return false;
+    }
+
+    public function exists(string $key, string $dir = null, string $extension = null)
+    {
+        $finder = new Finder();
+        $finder->in($this->rootDir . '/' . self::IMAGE_DIR);
+        if (null !== $dir) {
+            $finder->in($dir);
+        }
+
+        $path = $key . (null !== $extension ? '.' . $extension : '');
+        return $finder->path($path)->count();
+    }
+
+    public function getPath($id, $ext = null, $dir = null, bool $new = false)
+    {
+        if ($new) {
+            if (empty($ext)) {
+                throw new \RuntimeException(
+                    'File extension must be defined for new image. Provident image key : ' . $id
+                );
+            }
+            $dir = null !== $dir ? '/' . $dir : '';
+            return sprintf('%s/%s%s/%s.%s', $this->rootDir, SELF::IMAGE_DIR, $dir, $id, $ext);
+        } else {
+            $finder = new Finder();
+            $finder->in($this->rootDir . '/' . self::IMAGE_DIR);
+            if (null !== $dir) {
+                $finder->in($dir);
+            }
+
+            $path = $id . (null !== $ext ? '.' . $ext : '');
+            return $finder->path($path);
+        }
+
     }
 }

@@ -33,9 +33,20 @@ class Category
      */
     private $items;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="children")
+     */
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="parent")
+     */
+    private $children;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
 
@@ -94,6 +105,49 @@ class Category
     {
         if ($this->items->contains($item)) {
             $this->items->removeElement($item);
+        }
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
+
+    public function addChildren(self $children): self
+    {
+        if (!$this->children->contains($children)) {
+            $this->children[] = $children;
+            $children->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChildren(self $children): self
+    {
+        if ($this->children->contains($children)) {
+            $this->children->removeElement($children);
+            // set the owning side to null (unless already changed)
+            if ($children->getParent() === $this) {
+                $children->setParent(null);
+            }
         }
 
         return $this;

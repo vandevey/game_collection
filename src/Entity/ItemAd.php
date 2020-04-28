@@ -34,12 +34,12 @@ class ItemAd
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_deleted;
+    private $is_deleted = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_visible;
+    private $is_visible = true;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Offer", mappedBy="itemAd", cascade={"persist", "remove"})
@@ -64,11 +64,6 @@ class ItemAd
     private $author;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="itemAds")
-     */
-    private $categories;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\MessageThread", mappedBy="itemAd")
      */
     private $messageThreads;
@@ -81,7 +76,6 @@ class ItemAd
     public function __construct()
     {
         $this->scores = new ArrayCollection();
-        $this->categories = new ArrayCollection();
         $this->messageThreads = new ArrayCollection();
         $this->itemAdLikes = new ArrayCollection();
     }
@@ -111,30 +105,6 @@ class ItemAd
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
 
         return $this;
     }
@@ -237,32 +207,6 @@ class ItemAd
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->categories->contains($category)) {
-            $this->categories->removeElement($category);
-        }
 
         return $this;
     }
