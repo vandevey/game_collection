@@ -18,11 +18,11 @@
         </div>
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <div id='header-signin' class='header-sign'>Sign in</div>
-        {% else %}
             <a href="{{ path('app_logout') }}" style='text-decoration: none'>
                 <div id='header-logout' class='header-sign'>Log out</div>
             </a>
+        {% else %}
+            <div id='header-signin' class='header-sign'>Sign in</div>
         {% endif %}
     </div>
 </section>
