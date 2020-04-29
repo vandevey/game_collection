@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,15 +22,10 @@ class RegistrationFormType extends AbstractType
                 'required' => true,
                 'label' => 'Username',
             ])
-            ->add('email')
-//            ->add('agreeTerms', CheckboxType::class, [
-//                'mapped' => false,
-//                'constraints' => [
-//                    new IsTrue([
-//                        'message' => 'You should agree to our terms.',
-//                    ]),
-//                ],
-//            ])
+            ->add('email', EmailType::class, [
+                'required' => true,
+                'label' => 'Email',
+            ])
             ->add('password', RepeatedType::class, [
                 "type" => PasswordType::class,
                 "required" => true,
