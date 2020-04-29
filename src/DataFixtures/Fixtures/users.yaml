@@ -1,0 +1,11 @@
+data:
+  users.1:
+    email: 'john.doe@email.com'
+    roles: [ USER, COLLECTOR ]
+    pseudo: 'John Doe'
+    password: 'jo.doe' # password will be encoded
+  users.2:
+    email: 'jane.doe@email.com'
+    roles: [ USER, COLLECTOR ]
+    pseudo: 'Jane Doe'
+    password: 'ja.doe' # password will be encoded

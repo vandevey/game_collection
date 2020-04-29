@@ -22,7 +22,7 @@ Encore
         pattern: /\.(png|jpg|jpeg)$/
     })
 
-    .addEntry('js/app', './assets/js/app.js')
+    .addEntry('js/app', './assets/js/main.js')
     .addEntry('css/app', './assets/scss/app.scss')
     .cleanupOutputBeforeBuild()
 

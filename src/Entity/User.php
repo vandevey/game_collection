@@ -44,6 +44,11 @@ class User implements UserInterface
     private $pseudo;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_deleted = false;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="author")
      */
     private $items;
@@ -71,11 +76,6 @@ class User implements UserInterface
      * @ORM\JoinColumn(nullable=true)
      */
     private $itemAdLikes;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $is_deleted = false;
 
     public function __construct()
     {
