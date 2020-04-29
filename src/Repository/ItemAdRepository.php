@@ -19,6 +19,17 @@ class ItemAdRepository extends ServiceEntityRepository
         parent::__construct($registry, ItemAd::class);
     }
 
+    
+    public function getAllRecent()
+    {
+        return $this->createQueryBuilder('ad')
+            ->orderBy('ad.updatedAt', 'ASC')
+            ->getQuery() 
+            ->getResult();
+           
+    }
+    
+
     // /**
     //  * @return ItemAd[] Returns an array of ItemAd objects
     //  */
