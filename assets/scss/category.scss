@@ -8,7 +8,8 @@
   justify-content: center;
   align-items: center;
 
-  > label {
+  transition: transform 0.1s ease;
+  & > label {
     position: relative;
 
     display: flex;
@@ -22,7 +23,7 @@
 
     .category-selected-indicator {
       position: absolute;
-      bottom: -10px;
+      top: 55%;
 
       z-index: $z-bg;
       width: 100px;
@@ -32,7 +33,7 @@
     }
   }
 
-  > input:checked {
+  & > input:checked {
     + label {
       .category-selected-indicator {
         background-color: $complementary;
@@ -44,5 +45,9 @@
       }
     }
 
+  }
+
+  &:hover {
+    transform: translateY(-5px);
   }
 }

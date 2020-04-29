@@ -4,8 +4,10 @@
 namespace App\Controller;
 
 
+use App\Entity\Image;
 use App\Entity\Item;
 use App\Form\Items\ItemType;
+use App\Services\ImageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +20,10 @@ class ItemController extends AbstractController
      * @Route("/item/new", name="new_item")
      *
      * @param Request $request
+     * @param ImageManager $imageManager
      * @return RedirectResponse|Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ImageManager $imageManager): Response
     {
         $item = new Item();
         $form = $this->createForm(ItemType::class, $item);
@@ -32,9 +35,32 @@ class ItemController extends AbstractController
             $item->setCreatedAt();
             $item->setUpdatedAt();
 
-             $entityManager = $this->getDoctrine()->getManager();
-             $entityManager->persist($item);
-             $entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($item);
+
+            // image
+            $coverImageName = $imageManager->download($form->get('image_cover')->getData(), 'items');
+            if ($coverImageName) {
+                $coverImageParts = pathinfo($coverImageName);
+                $image = (new Image())->setItem($item)
+                    ->setKey($coverImageParts['filename'])
+                    ->setExtension($coverImageParts['extension']);
+
+                $entityManager->persist($image);
+            }
+            $largeImageName = $imageManager->download($form->get('image_large')->getData(), 'items');
+            if ($largeImageName) {
+                $largeImageParts = pathinfo($largeImageName);
+                $image = (new Image())
+                    ->setItem($item)
+                    ->setKey($largeImageParts['filename'])
+                    ->setExtension($largeImageParts['extension']);
+
+                $entityManager->persist($image);
+            }
+
+
+            $entityManager->flush();
         }
 
         return $this->render('views/item/new.html.twig', [

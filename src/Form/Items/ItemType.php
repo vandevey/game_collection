@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 
 class ItemType extends AbstractType
 {
@@ -22,26 +23,42 @@ class ItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'attr' => ['class' => 'input'],
-            ])
-            ->add('description', TextareaType::class, [
-                'attr' => ['class' => 'input'],
-            ])
+            ->add('name', TextType::class)
+            ->add('description', TextareaType::class)
             ->add('is_visible', CheckboxType::class, [
-                'label' => 'Privé',
-                'value' => true,
-                'attr' => ['class' => 'switch']
+                'label' => 'Public',
+                'attr' => [
+                    'class' => 'switch',
+                    'checked' => 'checked'
+                ]
             ])
             ->add('image_cover', FileType::class, [
                 'mapped' => false,
-                'required' => false,
-                'attr' => ['class' => 'input'],
+                'required' => true,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpg',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
+                ],
             ])
             ->add('image_large', FileType::class, [
                 'mapped' => false,
                 'required' => false,
-                'attr' => ['class' => 'input'],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpg',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image',
+                    ])
+                ],
             ])
             ->add('categories', EntityType::class, [
                 'label' => 'Categories',
