@@ -1,0 +1,18 @@
+{% macro form(name, icon, value, width = 64, height = 64) %}
+<div class="category-form" data-value="{{ value }}">
+    <input type="checkbox"
+           id="item_categoies_{{ value }}"
+           name="item[categories][]"
+           value="{{ value }}"
+            hidden>
+    <label for="item_categoies_{{ value }}">
+        <img class="category-icon"
+             src="{{ asset('categories/' ~ icon ~ '.png', 'image') }}"
+             width="{{ width }}"
+             height="{{ height }}"
+             alt="">
+        <span class="category-name">{{ name }}</span>
+        <div class="category-selected-indicator"></div>
+    </label>
+</div>
+{% endmacro %}

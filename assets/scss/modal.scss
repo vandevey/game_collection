@@ -1,0 +1,40 @@
+.modal {
+  background-color: $complementary;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: {
+    top: 20px;
+    bottom: 20px;
+    left: $padding-aside;
+    right: $padding-aside;
+  }
+
+  .form-title {
+    height: 90px;
+    width: 400px;
+    margin-left: -20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    font-size: $fs-2--em;
+    background-color: $primary;
+    color: $complementary;
+    border-radius: 0 $br-button $br-button 0;;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .modal-button {
+    display: flex;
+    justify-content: space-between;
+
+    margin: {
+      right: 20px;
+      left: 20px;
+      top: 40px;
+    };
+  }
+}

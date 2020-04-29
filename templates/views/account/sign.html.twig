@@ -5,7 +5,7 @@
 {% block header %}{% endblock %}
 
 {% block body %}
-    <section id="sign">
+    <section id="sign" class="modal">
         <div id="sign-choice">
             <div id="sign-in" class="sign-menu" data-enable='{% block sign_in_enable %}1{% endblock %}'>
                 <a href="{{ path('app_login') }}">
@@ -24,7 +24,7 @@
                 {% block form %}{% endblock %}
             </div>
 
-            <div id="sign-button">
+            <div class="modal-button">
 {#                <a href="{{ path('show_all') }}" class="btn btn-bg--dark">Cancel</a>#}
                 <a href="" class="btn btn-bg--dark">Cancel</a>
                 {% block submit_button %}{% endblock %}

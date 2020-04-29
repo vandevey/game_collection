@@ -4,12 +4,23 @@
 
 @import "form";
 @import "sign";
+@import "category";
+@import "item";
+@import "modal";
+
+* {
+  z-index: $z-normal;
+}
 
 body {
   padding: 0;
   margin: 0;
   background-color: $primary;
   color: $primary;
+}
+
+.hidden {
+  display: none!important;
 }
 
 #header {

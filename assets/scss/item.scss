@@ -1,0 +1,77 @@
+#item-create {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: $z-modal;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 90%;
+
+  label {
+    color: $primary;
+  }
+
+  #item-form {
+    display: flex;
+
+    #item-create--data {
+      display: flex;
+
+      & > div {
+        width: calc(50% - 30px);
+        margin: 0 30px 0 0;
+
+        & > div {
+          display: flex;
+          flex-direction: column;
+          margin: {
+            top: 20px;
+          }
+
+          textarea {
+            height: 100px;
+          }
+
+          input, textarea {
+            width: 100%;
+            margin-top: 15px;
+            max-width: 700px;
+
+            &.errors {
+              margin-top: 5px !important;
+            }
+          }
+        }
+      }
+
+      &:first-child {
+        width: calc(50% - 30px);
+      }
+
+    }
+
+    #item-categories {
+      margin-top: 10px;
+
+      #item-categories--listing {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        margin: 10px;
+
+        background-color: $primary;
+        border-radius: 10px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+        label {
+          color: $complementary;
+        }
+      }
+    }
+
+  }
+}

@@ -1,18 +1,50 @@
 {% extends 'views/base.html.twig' %}
+{% import "component/category.html.twig" as categoryForm %}
 
 {% block title %}New Item{% endblock %}
 
 {% block header %}{% endblock %}
 
 {% block body %}
-<section id="item-create">
-    {{ form_start(form) }}
-    {% for category in form.categories %}
-        <div>
-            {{ form_row(category) }} <br>
+<section id="item-create" class="modal">
+    <div class="form-title">
+        <h3>Create Item</h3>
+    </div>
+
+    <div id="item-form">
+        {{ form_start(form) }}
+        {{ form_widget(form.categories, { 'attr': {'class': 'hidden'} }) }} <!-- hide category row, done after -->
+        <article id="item-create--data">
+            <div>
+                {{ form_row(form.name) }}
+                {{ form_row(form.description) }}
+            </div>
+            <div>
+                {{ form_row(form.image_cover) }}
+                {{ form_row(form.image_large) }}
+                {{ form_row(form.is_visible) }}
+            </div>
+        </article>
+
+        {{ form_rest(form) }}
+        <div id="item-categories">
+            <label>Categories</label>
+            <div id="item-categories--listing">
+                {% for category in form.categories %}
+                    {% set index = category.vars.value %}
+                    {% set entity = form.categories.vars.choices[index].data %}
+                    {{ categoryForm.form(entity.name, entity.icon, index) }}
+                {% endfor %}
+            </div>
         </div>
-    {% endfor %}
-    <input type="submit" value="Create Item" />
-    {{ form_end(form) }}
+
+        <div class="modal-button">
+            {# <a href="{{ path('show_all') }}" class="btn btn-bg--dark">Cancel</a>#}
+            <a href="" class="btn btn-bg--dark">Cancel</a>
+            <button type="submit" class="btn btn-bg--submit">Create Item</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
 </section>
 {% endblock %}
