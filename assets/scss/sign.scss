@@ -96,13 +96,26 @@
       left: $sign-content-margin;
     };
 
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+
+    form {
+      width: 100%;
+    }
+
     div {
       display: flex;
       flex-direction: column;
-      margin-top: 20px;
+      margin: {
+        top: 20px;
+      }
 
-      input {
-        margin-top: 10px;
+      input{
+        margin-top: 15px;
+        &.errors {
+          margin-top: 5px!important;
+        }
       }
     }
 
@@ -115,7 +128,7 @@
     margin: {
       right: $sign-content-margin;
       left: $sign-content-margin;
-      top: 20px;
+      top: 40px;
     };
 
     .btn {
