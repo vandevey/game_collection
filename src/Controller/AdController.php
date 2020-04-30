@@ -4,61 +4,90 @@
 namespace App\Controller;
 
 
+use App\Entity\Offer;
+use App\Entity\Request as RequestEntity;
+use App\Entity\User;
+use App\Form\Ad\OfferType;
+use App\Form\Ad\RequestType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\ItemAd;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
-class AdController extends  AbstractController
+class AdController extends AbstractController
 {
     /**
-     * @Route("/ad/new", name="new_ad")
-     *
-     * @param User $user
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
-
-
-    public function new(Request $request)
+ * @Route("/ad/offer/new", name="new_offer")
+ *
+ * @param Request $request
+ * @return Response
+ */
+    public function newOffer(Request $request)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        /** @var \App\Entity\User $user */
+        /** @var User $user */
         $user = $this->getUser();
-        //dd($user);
-        $ad = new ItemAd();
-        $form = $this->createFormBuilder($ad)
-            ->add('title', TextType::class, ['label' => 'Titre'])
-            ->add('description', TextareaType::class)
-            ->add('save', SubmitType::class, ['label' => 'Create ad'])
-            ->getForm();
+
+        $offer = new Offer();
+        $form = $this->createForm(OfferType::class, $offer);
 
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $ad = $form->getData();
+            /** @var Offer $offer */
+            $offer = $form->getData();
+            // Item
+            $offer->getItem()->setOffer($offer);
+            // ItemAd
+            $offer->getItemAd()->setAuthor($user);
+            $offer->getItemAd()->setOffer($offer);
+            $offer->getItemAd()->setCreatedAt();
+            $offer->getItemAd()->setUpdatedAt();
 
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-
-            $ad->setAuthor($user);
-            $ad->setUpdatedAt();
-            $ad->setCreatedAt();
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($ad);
+            $entityManager->persist($offer->getItemAd());
+            $entityManager->persist($offer);
             $entityManager->flush();
 
-            return $this->redirectToRoute('new_ad');
         }
- 
+
         return $this->render('views/ad/new.html.twig', [
             'form' => $form->CreateView(),
+            'title' => 'Create an offer',
+            'type' => 'offer',
+        ]);
+    }
+
+    /**
+     * @Route("/ad/request/new", name="new_request")
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function newRequest(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $form = $this->createForm(RequestType::class, new RequestEntity());
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var RequestEntity $requestEntity */
+            $requestEntity = $form->getData();
+            $requestEntity->getItemAd()->setAuthor($user);
+            $requestEntity->getItemAd()->setRequest($requestEntity);
+            $requestEntity->getItemAd()->setUpdatedAt();
+            $requestEntity->getItemAd()->setCreatedAt();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($requestEntity);
+            $entityManager->flush();
+        }
+
+        return $this->render('views/ad/new.html.twig', [
+            'form' => $form->CreateView(),
+            'title' => 'Create a request',
+            'type' => 'request',
         ]);
     }
 }

@@ -18,11 +18,13 @@
         </div>
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="{{ path('app_logout') }}" style='text-decoration: none'>
-                <div id='header-logout' class='header-sign'>Log out</div>
+            <a href="{{ path('app_logout') }}" id='header-logout' class='header-sign' style='text-decoration: none'>
+                <div>Log out</div>
             </a>
         {% else %}
-            <div id='header-signin' class='header-sign'>Sign in</div>
+            <a href="{{ path('app_logout') }}" id='header-signin' class='header-sign' style='text-decoration: none'>
+                <div>Sign in</div>
+            </a>
         {% endif %}
     </div>
 </section>

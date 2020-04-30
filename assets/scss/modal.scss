@@ -1,0 +1,115 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: $z-modal;
+
+  background-color: $complementary;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  padding: {
+    top: 20px;
+    bottom: 20px;
+    left: $padding-aside;
+    right: $padding-aside;
+  }
+
+  display: flex;
+  flex-direction: column;
+
+  label {
+    color: $primary;
+  }
+
+  .modal-title {
+    height: 90px;
+    width: 400px;
+    margin-left: -20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    font-size: $fs-2--em;
+    background-color: $primary;
+    color: $complementary;
+    border-radius: 0 $br-button $br-button 0;;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .modal-form {
+    display: flex;
+
+    form {
+      width: 100%;
+    }
+
+    .modal-create--data {
+      display: flex;
+
+      & > div {
+        width: calc(50% - 30px);
+        margin: 0 30px 0 0;
+
+        & > div {
+          display: flex;
+          flex-direction: column;
+          margin: {
+            top: 20px;
+          }
+
+          textarea {
+            height: 100px;
+          }
+
+          input, textarea {
+            width: 100%;
+            margin-top: 15px;
+            max-width: 700px;
+            background-color: $color-input--dark;
+
+            &.errors {
+              margin-top: 5px !important;
+            }
+          }
+        }
+      }
+    }
+
+    .modal-entity--list {
+      margin-top: 10px;
+      width: 100%;
+
+      .modal-entity--listing {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 10px;
+
+        background-color: $primary;
+        border-radius: 10px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+        label {
+          color: $complementary;
+        }
+      }
+    }
+  }
+}
+
+.modal-button {
+  display: flex;
+  justify-content: space-between;
+
+  margin: {
+    right: 20px;
+    left: 20px;
+    top: 40px;
+  };
+}

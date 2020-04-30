@@ -5,6 +5,12 @@
 @import "header";
 @import "form";
 @import "sign";
+@import "block";
+@import "modal";
+
+* {
+  z-index: $z-normal;
+}
 
 // home
 @import "home/listing";
@@ -21,6 +27,17 @@ body {
   color: $primary;
 }
 
+.hidden {
+  display: none!important;
+}
+
+.inline-image {
+  display: flex;
+  flex-direction: row!important;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: -40px!important;
+}
 
 #user-detail {
 
