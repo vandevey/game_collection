@@ -29,12 +29,12 @@ class ItemType extends AbstractType
                 'label' => 'Public',
                 'attr' => [
                     'class' => 'switch',
-                    'checked' => 'checked'
                 ]
             ])
             ->add('image_cover', FileType::class, [
+                'label' => 'Cover',
                 'mapped' => false,
-                'required' => true,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -47,6 +47,7 @@ class ItemType extends AbstractType
                 ],
             ])
             ->add('image_large', FileType::class, [
+                'label' => 'Large',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [

@@ -22,8 +22,7 @@ class ItemAdType extends AbstractType
             ->add('is_visible', CheckboxType::class, [
                 'label' => 'Visible',
                 'attr' => [
-                    'class' => 'switch',
-                    'checked' => 'checked'
+                    'class' => 'switch'
                 ],
             ])
             ;

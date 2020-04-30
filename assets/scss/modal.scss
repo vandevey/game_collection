@@ -70,6 +70,7 @@
             width: 100%;
             margin-top: 15px;
             max-width: 700px;
+            background-color: $color-input--dark;
 
             &.errors {
               margin-top: 5px !important;
@@ -99,16 +100,16 @@
         }
       }
     }
-
-    .modal-button {
-      display: flex;
-      justify-content: space-between;
-
-      margin: {
-        right: 20px;
-        left: 20px;
-        top: 40px;
-      };
-    }
   }
+}
+
+.modal-button {
+  display: flex;
+  justify-content: space-between;
+
+  margin: {
+    right: 20px;
+    left: 20px;
+    top: 40px;
+  };
 }

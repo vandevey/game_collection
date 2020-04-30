@@ -9,6 +9,7 @@ use App\Entity\Item;
 use App\Form\Items\ItemType;
 use App\Services\ImageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,11 +40,24 @@ class ItemController extends AbstractController
             $item->setCreatedAt();
             $item->setUpdatedAt();
 
-            $item->setAuthor($user);
-
             $entityManager = $this->getDoctrine()->getManager();
+            $item->setAuthor($user);
             $entityManager->persist($item->getAuthor());
             $entityManager->persist($item);
+
+            $categories = $item->getCategories();
+            if ($categories->isEmpty()) {
+                $form->addError(new FormError('Your item need to have one genre or more.'));
+                return $this->render('views/item/new.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            }
+
+            foreach ($categories as $category) {
+                $category->addItem($item);
+                $entityManager->persist($category);
+            }
+
 
             // image
             $coverImageName = $imageManager->download($form->get('image_cover')->getData(), 'items');

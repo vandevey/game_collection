@@ -22,6 +22,14 @@ body {
   display: none!important;
 }
 
+.inline-image {
+  display: flex;
+  flex-direction: row!important;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: -40px!important;
+}
+
 #header {
     width: 100vw;
     height: auto;

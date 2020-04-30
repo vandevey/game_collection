@@ -1,6 +1,8 @@
 {% extends 'views/base.html.twig' %}
 {% import "component/block.html.twig" as block %}
 
+{% block title %} {{ title }} {% endblock %}
+
 {% block header %} {% endblock %}
 
 {% block body %}
@@ -22,7 +24,10 @@
             <div>
                 {% if type == "offer" %}
                     {{ form_row(form.price) }}
-                    {{ form_row(form.itemAd.is_visible) }}
+                    <!-- switch -->
+                    {{ form_widget(form.itemAd.is_visible, { 'attr': {'class': 'hidden'}}) }}
+                    {{ block.switch(form.itemAd.is_visible.vars.label, 'is_visible', true) }}
+                    <!-- switch -->
                 {% elseif type == "request" %}
                     {{ form_row(form.itemName) }}
                     {{ form_row(form.itemDescription) }}
