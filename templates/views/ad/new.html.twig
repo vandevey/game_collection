@@ -1,8 +1,62 @@
 {% extends 'views/base.html.twig' %}
+{% import "component/block.html.twig" as block %}
+
+{% block header %} {% endblock %}
 
 {% block body %}
-<section id='user-detail'>
-{{ form(form) }}
+<section id='ad' class="modal">
+    <div class="modal-title">
+        <h3>{{ title }}</h3>
+    </div>
+
+    <div class="modal-form">
+        {{ form_start(form) }}
+        <div class="modal-create--data">
+            <div>
+                {{ form_row(form.itemAd.title) }}
+                {{ form_row(form.itemAd.description) }}
+                {% if type == "request" %}
+                    {{ form_row(form.itemAd.is_visible) }}
+                {% endif %}
+            </div>
+            <div>
+                {% if type == "offer" %}
+                    {{ form_row(form.price) }}
+                    {{ form_row(form.itemAd.is_visible) }}
+                {% elseif type == "request" %}
+                    {{ form_row(form.itemName) }}
+                    {{ form_row(form.itemDescription) }}
+                    <div>
+                        {{ form_row(form.minPrice) }}
+                        {{ form_row(form.maxPrice) }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+        {% if type == "offer" %}
+            <!-- hide item row, done after -->
+            {{ form_widget(form.item, { 'attr': {'class': 'hidden'} }) }}
+            <div class="modal-entity--list">
+                <label>Items</label>
+                <div class="modal-entity--listing">
+                    {% for oneItem in form.item %}
+                        {% set index = oneItem.vars.value %}
+                        {% set entity = form.item.vars.choices[index].data %}
+                        {{ block.item(entity.name, null, index) }}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        <div class="modal-button">
+            {# <a href="{{ path('show_all') }}" class="btn btn-bg--dark">Cancel</a>#}
+            <a href="" class="btn btn-bg--dark">Cancel</a>
+            {{ form_row(form.submit, {'attr': {'class': 'btn btn-bg--submit'}}) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+
 </section>
 
 {% endblock %}

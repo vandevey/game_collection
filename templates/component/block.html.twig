@@ -1,0 +1,38 @@
+{% macro category(name, icon, value, width = 64, height = 64) %}
+<div class="block-form">
+    <input type="checkbox"
+           id="item_categoies_{{ value }}"
+           name="item[categories][]"
+           value="{{ value }}"
+            hidden>
+    <label for="item_categoies_{{ value }}">
+        <img class="block-icon"
+             src="{{ asset('categories/' ~ icon ~ '.png', 'image') }}"
+             width="{{ width }}"
+             height="{{ height }}"
+             alt="">
+        <span class="block-name">{{ name }}</span>
+        <span class="block-selected-indicator"></span>
+    </label>
+</div>
+{% endmacro %}
+
+
+{% macro item(name, cover, value, width = 64, height = 64) %}
+    <div class="block-form">
+        <input type="radio"
+               id="offer_item_c_{{ value }}"
+               name="offer[item]"
+               value="{{ value }}"
+               hidden>
+        <label for="offer_item_c_{{ value }}">
+            <img class="block-icon"
+                 src="{{ asset('item/' ~ value ~ '.jpg', 'image') }}"
+                 width="{{ width }}"
+                 height="{{ height }}"
+                 alt="">
+            <span class="block-name">{{ name }}</span>
+            <span class="block-selected-indicator"></span>
+        </label>
+    </div>
+{% endmacro %}

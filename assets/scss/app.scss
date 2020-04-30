@@ -4,8 +4,7 @@
 
 @import "form";
 @import "sign";
-@import "category";
-@import "item";
+@import "block";
 @import "modal";
 
 * {
@@ -81,7 +80,7 @@ body {
         flex-direction: column;
         align-items: center;
         #header-username-avatar-wrapper {
-            z-index: 2;
+            z-index: 3;
 
             display: flex;
             align-items: center;
@@ -117,7 +116,7 @@ body {
         }
 
         .header-sign {
-            z-index: 1;
+            z-index: $z-normal;
             padding: 5px 10px;
           margin: {
             top: -10px;

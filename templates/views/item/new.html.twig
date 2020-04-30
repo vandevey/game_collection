@@ -1,5 +1,5 @@
 {% extends 'views/base.html.twig' %}
-{% import "component/category.html.twig" as categoryForm %}
+{% import "component/block.html.twig" as block %}
 
 {% block title %}New Item{% endblock %}
 
@@ -7,14 +7,13 @@
 
 {% block body %}
 <section id="item-create" class="modal">
-    <div class="form-title">
+    <div class="modal-title">
         <h3>Create Item</h3>
     </div>
 
-    <div id="item-form">
+    <div class="modal-form">
         {{ form_start(form) }}
-        {{ form_widget(form.categories, { 'attr': {'class': 'hidden'} }) }} <!-- hide category row, done after -->
-        <article id="item-create--data">
+        <article class="modal-create--data">
             <div>
                 {{ form_row(form.name) }}
                 {{ form_row(form.description) }}
@@ -25,15 +24,16 @@
                 {{ form_row(form.is_visible) }}
             </div>
         </article>
-
+        <!-- hide category row, done after -->
+        {{ form_widget(form.categories, { 'attr': {'class': 'hidden'} }) }}
         {{ form_rest(form) }}
-        <div id="item-categories">
+        <div class="modal-entity--list">
             <label>Categories</label>
-            <div id="item-categories--listing">
+            <div class="modal-entity--listing">
                 {% for category in form.categories %}
                     {% set index = category.vars.value %}
                     {% set entity = form.categories.vars.choices[index].data %}
-                    {{ categoryForm.form(entity.name, entity.icon, index) }}
+                    {{ block.category(entity.name, entity.icon, index) }}
                 {% endfor %}
             </div>
         </div>

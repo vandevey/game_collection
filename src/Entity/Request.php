@@ -37,7 +37,8 @@ class Request
     private $maxPrice;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ItemAd", inversedBy="request")
+     * @ORM\OneToOne(targetEntity="App\Entity\ItemAd", inversedBy="request", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $itemAd;
 
@@ -77,7 +78,7 @@ class Request
 
     public function setMinPrice(int $minPrice): self
     {
-        $this->minPrice = $minPrice * 100;
+        $this->minPrice = $minPrice;
 
         return $this;
     }
@@ -89,7 +90,7 @@ class Request
 
     public function setMaxPrice(?int $maxPrice): self
     {
-        $this->maxPrice = $maxPrice * 100;
+        $this->maxPrice = $maxPrice;
 
         return $this;
     }

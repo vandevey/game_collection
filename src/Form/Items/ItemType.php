@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints\File;
 
 class ItemType extends AbstractType
 {
-    private const CAT_GENRE_ID = 2;
+    private const CAT_GENRE_ID = 1;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

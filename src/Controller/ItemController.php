@@ -25,6 +25,10 @@ class ItemController extends AbstractController
      */
     public function new(Request $request, ImageManager $imageManager): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        /** @var User $user */
+        $user = $this->getUser();
+
         $item = new Item();
         $form = $this->createForm(ItemType::class, $item);
 
@@ -35,7 +39,10 @@ class ItemController extends AbstractController
             $item->setCreatedAt();
             $item->setUpdatedAt();
 
+            $item->setAuthor($user);
+
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($item->getAuthor());
             $entityManager->persist($item);
 
             // image
@@ -58,7 +65,6 @@ class ItemController extends AbstractController
 
                 $entityManager->persist($image);
             }
-
 
             $entityManager->flush();
         }

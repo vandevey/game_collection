@@ -45,7 +45,7 @@ class Offer
 
     public function setPrice(int $price): self
     {
-        $this->price = $price * 100;
+        $this->price = $price;
 
         return $this;
     }
