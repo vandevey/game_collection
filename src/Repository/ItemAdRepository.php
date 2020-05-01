@@ -28,6 +28,29 @@ class ItemAdRepository extends ServiceEntityRepository
             ->getResult();
            
     }
+ 
+    public function getOffer()
+    {
+        return $this->createQueryBuilder('ad')
+            ->leftJoin('ad.request','o')
+            ->having('COUNT(o.id) = 0')
+            ->orderBy('ad.updatedAt', 'DESC')
+            ->groupBy('ad.title')
+            ->getQuery() 
+            ->getResult();
+           
+    }
+
+    public function getRequest()
+    {
+        return $this->createQueryBuilder('ad')
+        ->leftJoin('ad.offer','o')
+        ->having('COUNT(o.id) = 0')
+        ->orderBy('ad.updatedAt', 'DESC')
+        ->groupBy('ad.title')
+        ->getQuery() 
+        ->getResult();
+    }
     
 
     // /**

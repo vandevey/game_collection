@@ -1,0 +1,31 @@
+{% extends 'views/base.html.twig' %}
+
+{% block body %}
+	<section class="Request">
+
+		{% if requests %}
+			<span class="Request-count Home-count">{{requests|length}}
+				results</span>
+			<ul class="Request-list Home-list">
+				{% for request in requests %}
+
+
+					{% if request.getIsVisible() %}
+
+						<li class="Offer-listing Home-listing Request">
+							<a class="Home-link" href="{{ path('detail', {id: request.id} )}}">
+								<h3 class="Home-subtitle">{{request.title}}</h3>
+								<p class="Home-desc">{{request.description}}</p>
+							</a>
+						</li>
+
+					{% endif %}
+
+
+				{% endfor %}
+			</ul>
+
+		{% endif %}
+
+	</section>
+{% endblock %}
