@@ -1,37 +1,40 @@
 {% extends 'views/base.html.twig' %}
 {% import "component/block.html.twig" as block %}
 
-{% block title %}
-	Page nom
-{% endblock %}
-
 {% set offer = itemAd.getOffer() %}
 {% set request = itemAd.getRequest() %}
 
+{% block title %}
+	GameCollect - {{ itemAd.title }}
+{% endblock %}
 
 {% block body %}
-	<section class="Detail">
-
-		<h1>{{ itemAd.title }}</h1>
-		<h2>Offre / Request</h2>
-		<p>{{ itemAd.description }}</p>
-		<p>{{ itemAd.author.pseudo }}</p>
-		<p>{{ itemAd.author.email }}</p>
-
-		{% if offer %}
-			<p>{{ offer.price }}
-				€</p>
-			<p>{{ offer.item }}</p>
-            {% if offer.item.images.get('0') %}
-            	<img src="{{ asset('items/' ~ offer.item.images.0.path, 'image') }}" title="img"> 
+	<section class="Detail {{offer ? 'Offer' : 'Request' }}">
+		<div class="Detail-container">
+			
+            <div class="Detail-content">
+                <h1 class="Detail-title">{{ itemAd.title }}</h1>
+                {% if offer %}
+                    <span class="Detail-price">{{ offer.price }} €</span>
+                    <p>{{ offer.item }}</p>
+                {% elseif request %}
+                    <span class="Detail-price">{{ request.minPrice }} € - {{ request.maxPrice }} €</span>
+                {% endif %}
+                <p class="Detail-desc">{{ itemAd.description }}</p>
+                <div class="Detail-author">
+                    <p class="Detail-name">Publish by : {{ itemAd.author.pseudo }}</p>
+                    <a class="Detail-contact" href="mailto:{{ itemAd.author.email }}">Contact</a>
+                
+                </div>
+            </div>
+                   
+            {% if offer and offer.item.images.get('0') %}
+                <picture class="Detail-picture">
+                    <img class="Detail-image" src="{{ asset('items/' ~ offer.item.images.0.path, 'image') }}" title="img">
+                </picture>
             {% endif %}
-            
-		
-		{% elseif request %}
-			<span>{{ request.minPrice }} € - {{ request.maxPrice }} €</p>
-		{% endif %}
-    
-
+     
+		</div>
 	</section>
 
 {% endblock %}
