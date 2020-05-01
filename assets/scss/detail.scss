@@ -1,0 +1,85 @@
+.Detail {
+
+    &-container {
+        width: 80%;
+        margin: 100px auto 0;
+        display: flex;
+    }
+
+    &-content {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 60%;
+    }
+
+    &-picture {
+        width: 40%;
+        display: flex;
+       
+    }
+
+    &-image {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    &-title {
+        font-size: 32px;
+        line-height: 40px;
+        margin: 0 0 10px;
+        position: relative;
+        .Request & { 
+            &::after {
+                position: absolute;
+                top: 50%;
+                right: -20px;
+                font-size: 22px;
+                transform: translate(100%, -50%);
+                content: "Request";
+                background-color: $blue;
+                padding: 5px;
+                border-radius: $br-button;
+                color: $complementary;
+            }
+        }
+
+        .Offer & {
+            &::after {
+                position: absolute;
+                top: 50%;
+                right: -20px;
+                font-size: 22px;
+                transform: translate(100%, -50%);
+                content: "Offer";
+                background-color: $yellow;
+                padding: 5px;
+                border-radius: $br-button;
+                color: $complementary;
+            }
+        }
+    }
+
+    &-price {
+        font-size: 28px;
+        line-height: 32px;
+    }
+
+    &-desc {
+        width: 100%;
+        letter-spacing: .2px;
+        margin: 30px 0 20px;
+    }
+
+    &-author {
+       display: flex;
+       align-items: center;
+    }
+
+    &-contact {
+        @extend .btn;
+        @extend .btn-bg--submit;
+        margin: 0 0 0 20px;
+    }
+
+}
