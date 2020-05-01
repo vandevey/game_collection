@@ -2,20 +2,27 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Game Collection{% endblock %}</title>
 
-        <!-- CSS -->
-        {{ encore_entry_link_tags("css/app") }}
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block header %}
-            {% include 'views/partials/_header.html.twig' %}
-        {% endblock %}
+    <!-- CSS -->
+    {{ encore_entry_link_tags("css/app") }}
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<section id="header-wrapper">
+    {% block header %}
+        {% include 'views/partials/_header.html.twig' %}
+    {% endblock %}
+</section>
 
-        {% block body %}{% endblock %}
-        <!-- JS -->
-        {{ encore_entry_script_tags("js/app") }}
-        {% block javascripts %}{% endblock %}
-    </body>
+<section id="body-wrapper">
+    {% block body %}
+
+    {% endblock %}
+</section>
+
+<!-- JS -->
+{{ encore_entry_script_tags("js/app") }}
+{% block javascripts %}{% endblock %}
+</body>
 </html>

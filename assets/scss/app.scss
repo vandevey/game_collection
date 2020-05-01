@@ -39,9 +39,11 @@ body {
   margin-top: -40px!important;
 }
 
-#user-detail {
-
+#header-wrapper {
+  height: 150px;
+  width: auto;
 }
+
 
 #user-add {
   // temp
@@ -53,3 +55,4 @@ body {
   width: 100vw;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+
