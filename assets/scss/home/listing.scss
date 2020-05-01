@@ -1,5 +1,4 @@
 .Home {
-
     &-ad {
         
     }
@@ -10,10 +9,10 @@
     &-list {
         display: flex;
         flex-wrap: wrap;
-
     }
 
     &-listing {
+        list-style-type: none;
         background-color: $complementary;
         width: calc(100% / 3 - 40px);
         margin: 30px 20px;

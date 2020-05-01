@@ -1,0 +1,15 @@
+{% extends 'views/base.html.twig' %}
+{% from 'component/block.html.twig' import category %}
+
+{% block body %}
+    <section id="home">
+        <aside class="home-categories">
+            {% for category in categories %}
+                {{ category(category.name, category.icon, category.id, 64, 64, 'dark') }}
+            {% endfor %}
+        </aside>
+        <div class="home-listing-wrapper">
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+{% endblock %}

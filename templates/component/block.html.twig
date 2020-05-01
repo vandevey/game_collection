@@ -1,4 +1,4 @@
-{% macro category(name, icon, value, width = 64, height = 64) %}
+{% macro category(name, icon, value, width = 64, height = 64, color = 'light') %}
 <div class="block-form">
     <input type="checkbox"
            id="item_categoies_{{ value }}"
@@ -11,8 +11,8 @@
              width="{{ width }}"
              height="{{ height }}"
              alt="">
-        <span class="block-name">{{ name }}</span>
-        <span class="block-selected-indicator"></span>
+        <span class="block-name {{ color }}">{{ name }}</span>
+        <span class="block-selected-indicator {{ color }}"></span>
     </label>
 </div>
 {% endmacro %}
