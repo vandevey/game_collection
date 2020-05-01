@@ -4,8 +4,10 @@ easy_admin:
         brand_color: '#1ABC9C'
     entities:
         # List the entity class name you want to manage
-        Ad:
-            class:  App\Entity\ItemAd
+        Offer:
+            class:  App\Entity\Offer
+        Request:
+            class:  App\Entity\Request
         Item:
             class: App\Entity\Item
         Category:

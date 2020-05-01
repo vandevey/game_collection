@@ -1,26 +1,27 @@
 {% extends 'views/base.html.twig' %}
 
 {% block body %}
-    <section id='user-detail'>
-        {{ form_start(form) }}
-        <div class="my-custom-class-for-errors">{{ form_errors(form) }}</div>
+    <section id="user-wrapper">
+        <article id='user-detail'>
+            {{ form_start(form) }}
+            <div class="form-errors">{{ form_errors(form) }}</div>
 
-        <div class="row">
-            <div class="col">
-                {{ form_row(form.pseudo) }}
+            <div class="form form-row">
+                <div class="form form-row">
+                    {{ form_row(form.pseudo) }}
+                </div>
+                <div class="form form-col">
+                    {{ form_row(form.oldPassword) }}
+                    {{ form_row(form.newPassword) }}
+                    {{ form_row(form.submit) }}
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col" id="some-custom-id">
-                {{ form_row(form.oldPassword) }}
-                {{ form_row(form.newPassword) }}
-            </div>
-        </div>
-        {{ form_end(form) }}
-    </section>
+            {{ form_end(form) }}
+        </article>
 
-    <section id='user-add'>
+        <article id='user-items'>
 
+        </article>
     </section>
 {% endblock %}

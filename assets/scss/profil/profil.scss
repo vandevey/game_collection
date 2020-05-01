@@ -1,0 +1,39 @@
+#user-wrapper {
+  width: 100%;
+  min-height: calc(100vh - #{$header-height});
+  display: flex;
+  flex-direction: column;
+
+  #user-detail {
+    label {
+      color: white;
+    }
+
+    .form {
+      & > div {
+        & > div {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      .form-row {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-col {
+        display: flex;
+      }
+
+    }
+  }
+
+  #user-items {
+    flex: 1;
+    background-color: $complementary;
+    width: 100%;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+}
+
