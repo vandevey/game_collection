@@ -45,10 +45,7 @@ class ImagesFixture extends AbstractFixtures implements DependentFixtureInterfac
                     $this->buildReferenceName($tempItem['refId'], ItemsFixtures::RESOURCE_NAME)
                 )
             );
-
-            $imageNameParts = pathinfo($imageName);
-            $image->setKey($imageNameParts['filename']);
-            $image->setExtension($imageNameParts['extension']);
+            $image->setPath($imageName);
 
             $manager->persist($image);
         }

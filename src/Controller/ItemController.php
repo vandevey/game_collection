@@ -63,20 +63,16 @@ class ItemController extends AbstractController
             // image
             $coverImageName = $imageManager->download($form->get('image_cover')->getData(), 'items');
             if ($coverImageName) {
-                $coverImageParts = pathinfo($coverImageName);
                 $image = (new Image())->setItem($item)
-                    ->setKey($coverImageParts['filename'])
-                    ->setExtension($coverImageParts['extension']);
+                    ->setPath($coverImageName);
 
                 $entityManager->persist($image);
             }
             $largeImageName = $imageManager->download($form->get('image_large')->getData(), 'items');
             if ($largeImageName) {
-                $largeImageParts = pathinfo($largeImageName);
                 $image = (new Image())
                     ->setItem($item)
-                    ->setKey($largeImageParts['filename'])
-                    ->setExtension($largeImageParts['extension']);
+                    ->setPath($largeImageName);
 
                 $entityManager->persist($image);
             }
