@@ -1,0 +1,74 @@
+form {
+  input[type=text], input[type=password],
+  input[type=email], textarea {
+    border: none;
+    padding: 8px;
+    margin: {
+      top: 8px;
+      bottom: 2px;
+      left: 2px;
+      right: 2px;
+    }
+    box-sizing: border-box;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    resize: none; // for texarea
+
+    &:focus, &:active {
+      outline-color: $primary;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  textarea:focus, textarea:active {
+    box-shadow: none;
+  }
+
+  label {
+    font-size: $fs-24;
+
+    .color--light {
+      color: $complementary
+    }
+
+    .color--dark {
+      color: $primary
+    }
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    color: $red;
+    font-size: $fs-11;
+  }
+}
+
+.btn {
+  border: none;
+  border-radius: $br-button;
+  padding: 8px 25px;
+  cursor: pointer;
+
+  font-size: $fs-16;
+
+  &.btn-bg--dark {
+    background-color: $primary;
+    color: white;
+  }
+
+  &.btn-bg--submit {
+    background-color: $green;
+    color: white;
+  }
+
+  &:active, &:focus {
+    outline: none;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+  }
+}
+
+a.btn {
+  text-decoration: none;
+}

@@ -1,0 +1,40 @@
+{% extends 'views/base.html.twig' %}
+{% import "component/block.html.twig" as block %}
+
+{% set offer = itemAd.getOffer() %}
+{% set request = itemAd.getRequest() %}
+
+{% block title %}
+	GameCollect - {{ itemAd.title }}
+{% endblock %}
+
+{% block body %}
+	<section class="Detail {{offer ? 'Offer' : 'Request' }}">
+		<div class="Detail-container">
+			
+            <div class="Detail-content">
+                <h1 class="Detail-title">{{ itemAd.title }}</h1>
+                {% if offer %}
+                    <span class="Detail-price">{{ offer.price }} €</span>
+                    <p>{{ offer.item }}</p>
+                {% elseif request %}
+                    <span class="Detail-price">{{ request.minPrice }} € - {{ request.maxPrice }} €</span>
+                {% endif %}
+                <p class="Detail-desc">{{ itemAd.description }}</p>
+                <div class="Detail-author">
+                    <p class="Detail-name">Publish by : {{ itemAd.author.pseudo }}</p>
+                    <a class="Detail-contact" href="mailto:{{ itemAd.author.email }}">Contact</a>
+                
+                </div>
+            </div>
+                   
+            {% if offer and offer.item.images.get('0') %}
+                <picture class="Detail-picture">
+                    <img class="Detail-image" src="{{ asset('items/' ~ offer.item.images.0.path, 'image') }}" title="img">
+                </picture>
+            {% endif %}
+     
+		</div>
+	</section>
+
+{% endblock %}

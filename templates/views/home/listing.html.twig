@@ -1,0 +1,24 @@
+{% extends 'views/home/home.html.twig' %}
+
+{% block content %}
+	<section class="Home">
+		<div class="Home-ad">
+		{% if all %}
+		<span class="Home-count">{{all|length}} results</span>
+			<ul class="Home-list">
+				{% for item in all %}
+					{% if item.getIsVisible() %}
+						<li class="Home-listing {{ item.isOffer() ? 'Request' : 'Offer'}}">
+							<a class="Home-link" href="">
+								<h3 class="Home-subtitle">{{item.title}}</h3>
+								<p class="Home-desc">{{item.description}}</p>
+							</a>
+						</li>
+				
+				{% endif %}
+			{% endfor %}
+		</ul>
+		</div>
+	{% endif %}
+
+</section>{% endblock %}

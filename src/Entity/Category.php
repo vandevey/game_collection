@@ -24,30 +24,42 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Item", inversedBy="categories")
+     * @ORM\Column(type="boolean")
      */
-    private $item;
+    private $is_active = true;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="childrens")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Item", inversedBy="categories")
+     */
+    private $items;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="children")
      */
     private $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="parent")
      */
-    private $childrens;
+    private $children;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $is_active;
+    private $icon;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Request", mappedBy="categories")
+     */
+    private $requests;
 
     public function __construct()
     {
-        $this->item = new ArrayCollection();
-        $this->childrens = new ArrayCollection();
+        $this->items = new ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->requests = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -66,77 +78,9 @@ class Category
         return $this;
     }
 
-    /**
-     * @return Collection|Item[]
-     */
-    public function getItem(): Collection
+    public function __toString()
     {
-        return $this->item;
-    }
-
-    public function addItem(Item $item): self
-    {
-        if (!$this->item->contains($item)) {
-            $this->item[] = $item;
-        }
-
-        return $this;
-    }
-
-    public function removeItem(Item $item): self
-    {
-        if ($this->item->contains($item)) {
-            $this->item->removeElement($item);
-        }
-
-        return $this;
-    }
-
-    public function getParent(): ?self
-    {
-        return $this->parent;
-    }
-
-    public function setParent(?self $parent): self
-    {
-        if ($parent->id === $this->id) {
-            return $this;
-        }
-
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|self[]
-     */
-    public function getChildrens(): Collection
-    {
-        return $this->childrens;
-    }
-
-    public function addChildren(self $children): self
-    {
-        if (!$this->childrens->contains($children)) {
-            $this->childrens[] = $children;
-            $children->setParent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeChildren(self $children): self
-    {
-        if ($this->childrens->contains($children)) {
-            $this->childrens->removeElement($children);
-            // set the owning side to null (unless already changed)
-            if ($children->getParent() === $this) {
-                $children->setParent(null);
-            }
-        }
-
-        return $this;
+        return $this->name;
     }
 
     public function getIsActive(): ?bool
@@ -151,8 +95,112 @@ class Category
         return $this;
     }
 
-    public function __toString()
+    /**
+     * @return Collection|Item[]
+     */
+    public function getItems(): Collection
     {
-        return $this->name;
+        return $this->items;
+    }
+
+    public function addItem(Item $item): self
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): self
+    {
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+        }
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
+
+    public function addChildren(self $children): self
+    {
+        if (!$this->children->contains($children)) {
+            $this->children[] = $children;
+            $children->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChildren(self $children): self
+    {
+        if ($this->children->contains($children)) {
+            $this->children->removeElement($children);
+            // set the owning side to null (unless already changed)
+            if ($children->getParent() === $this) {
+                $children->setParent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(?string $icon): self
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Request[]
+     */
+    public function getRequests(): Collection
+    {
+        return $this->requests;
+    }
+
+    public function addRequest(Request $request): self
+    {
+        if (!$this->requests->contains($request)) {
+            $this->requests[] = $request;
+            $request->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRequest(Request $request): self
+    {
+        if ($this->requests->contains($request)) {
+            $this->requests->removeElement($request);
+            $request->removeCategory($this);
+        }
+
+        return $this;
     }
 }

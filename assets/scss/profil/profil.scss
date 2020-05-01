@@ -1,0 +1,124 @@
+#user-wrapper {
+  width: 100%;
+  min-height: calc(100vh - #{$header-height});
+  display: flex;
+  flex-direction: column;
+  margin: 150px 0 0;
+
+  #user-detail {
+    margin-bottom: 20px;
+    width: 80%;
+    margin: 0 auto;
+    label {
+      color: white;
+    }
+
+    .form {
+      & > div {
+        margin-top: 10px;
+
+        &:first-child {
+          margin-top: -10px;
+        }
+        & > div {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+
+          padding-right: 20px;
+          input {
+            width: calc(100% / 3 - 30px);
+          }
+        }
+      }
+
+      .form-row {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-col {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        & > div {
+          width: calc(100% / 3 - 20px);
+          input {
+            width: 100%;
+          }
+
+          &:last-child {
+            width: 200px;
+            margin: 20px 0 0;
+          }
+        }
+      }
+
+    }
+  }
+ 
+  #user-items {
+    flex: 1;
+    width: 100%;
+    margin: 50px 0 0;
+    display: flex;
+    
+    flex-direction: column;
+    padding: 0 10% 100px;
+    & > #user-items--nav {
+      height: 50px;
+     
+    }
+    & > #user-items--wrapper {
+      flex: 1;
+      background-color: $complementary;
+      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+      box-sizing: border-box;
+      padding: 20px;
+
+      display: flex;
+      flex-direction: row;
+      & > #user-items--list {
+        flex: 2;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
+
+        & #user-items--listing {
+          width: calc(100% / 4 - 20px);
+          margin: 20px 10px;
+
+          & > picture {
+            width: 100%;
+            display: flex;
+            & > img {
+              object-fit: contain;
+              width: 100%;
+            }
+          }
+
+          & > span {
+            color: $primary;
+            padding: 10px 0 0;
+            display: block;
+          }
+    
+        }
+      } 
+
+      & > #user-items--actions {
+        position: sticky;
+        top: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin: 0 20px 0 20px;
+        height: 220px;
+      }
+    }
+  }
+}
+

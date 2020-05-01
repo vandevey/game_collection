@@ -3,7 +3,6 @@
 namespace App\Entity\Tools;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 trait TimeStampTrait
 {
@@ -27,7 +26,7 @@ trait TimeStampTrait
     }
 
 
-    public function setCreatedAt(): void
+    public function setCreatedAt(\DateTime $date = null): void
     {
         if (null !== $this->created_at) {
             return;
@@ -41,8 +40,12 @@ trait TimeStampTrait
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTime $updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt = null)
     {
+        if (null !== $this->updatedAt) {
+            return;
+        }
+
         $this->updatedAt = new \DateTime('now');
     }
 }

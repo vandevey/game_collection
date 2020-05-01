@@ -1,0 +1,29 @@
+{% extends 'views/home/home.html.twig' %}
+
+{% block content %}
+	<section class="Offer">
+    
+		{% if offers %}
+			<span class="Offer-count Home-count">{{offers|length}} results</span>
+			<ul class="Offer-list Home-list">
+				{% for offer in offers %} 
+  
+					{% if offer.getIsVisible() %}
+					
+						<li class="Offer-listing Home-listing Offer">
+							<a class="Home-link" href="{{ path('detail', {id: offer.id} )}}">
+								<h3 class="Home-subtitle">{{offer.title}}</h3>
+								<p class="Home-desc">{{offer.description}}</p>
+							</a>
+						</li>
+
+					{% endif %}
+
+
+				{% endfor %}
+			</ul>
+
+		{% endif %}
+
+	</section>
+{% endblock %}

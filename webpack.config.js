@@ -17,12 +17,12 @@ Encore
     .copyFiles({
         from: './assets/images',
         //if versioning is enabled, add the file hash too
-        to: 'images/[path][name].[hash:8].[ext]',
+        to: 'images/[path][name].[ext]',
         // only copy files matching this pattern
         pattern: /\.(png|jpg|jpeg)$/
     })
 
-    .addEntry('js/app', './assets/js/app.js')
+    .addEntry('js/app', './assets/js/main.js')
     .addEntry('css/app', './assets/scss/app.scss')
     .cleanupOutputBeforeBuild()
 

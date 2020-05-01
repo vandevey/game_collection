@@ -1,0 +1,237 @@
+.block-form {
+  width: 100px;
+  height: 100px;
+
+  margin: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: transform 0.1s ease;
+
+  .block-name {
+    &.light {
+      color: $complementary!important;
+    }
+
+    &.dark {
+      color: $primary!important;
+    }
+  }
+
+  & > label {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+
+    cursor: pointer;
+    font-size: $fs-14;
+
+    .block-selected-indicator {
+      position: absolute;
+      top: 55%;
+
+      z-index: $z-bg;
+      width: 100px;
+      height: 50px;
+
+      border-radius: $br-button;
+    }
+  }
+
+  & > input:checked {
+    + label {
+      .block-selected-indicator {
+        &.light {
+          background-color: $complementary;
+        }
+
+        &.dark {
+          background-color: $primary;
+        }
+
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+      }
+
+      .block-name {
+        &.light {
+          color: $primary!important;
+        }
+
+        &.dark {
+          color: $complementary!important;
+        }
+      }
+    }
+
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.block-switch {
+  display: flex;
+  flex-direction: row!important;
+  align-items: center;
+
+  .block-switch--slider {
+    position: relative;
+    display: inline-block;
+    width: 140px;
+    height: 30px;
+
+    margin-left: 10px;
+
+    & > .block-switch--slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      cursor: pointer;
+      background: $color-input--dark;
+      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+      -webkit-transition: all .2s ease .3s;
+      transition: all .2s ease .3s;
+      &:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+
+        width: 45px;
+        height: 45px;
+
+        background: $primary;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+
+    }
+
+    input:checked {
+      + .block-switch--slide {
+        background-color: $green;
+        &:before {
+          left: calc(100% - 45px);
+        }
+
+      }
+    }
+  }
+
+
+
+}
+
+.block-image {
+  display: flex;
+  flex-direction: row!important;
+
+  .block-image--button {
+    position: relative; // for text transition
+    cursor: pointer;
+    background-color: $color-input--dark;
+    border-radius: $br-button;
+    margin: {
+      top: $fs-1--em;
+      left: 10px;
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    &:hover {
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    & > .block-image--text {
+      border-radius: $br-button;
+      padding:{
+        left: 6px;
+        right: 6px;
+        bottom: 2px;
+      }
+      transition: all 0.4s ease-in-out;
+      &.top-left {
+        position: absolute;
+        font-size: $fs-14;
+        top: -28px;
+        left: 5px;
+
+        background-color: $primary;
+        color: $complementary;
+      }
+    }
+
+    & > img {
+      display: none;
+      border-radius: $br-button;
+      box-sizing: border-box;
+      padding: 10px;
+      filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.25));
+    }
+
+  }
+}
+
+.block-new {
+  position: relative;
+  width: 150px;
+  height: 50px;
+
+  box-sizing: border-box;
+
+  background: #28242C;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px 0px 0px 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: $complementary;
+  text-decoration: none;
+  font-size: 16px;
+
+  .block-new--text {
+    margin-left: -30px;
+  }
+
+  .block-new--icon {
+    position: absolute;
+    right: -20px;
+
+    width: 60px;
+    height: 60px;
+    background-color: $green;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .1s ease;
+    img {
+      width: 60%;
+      height: 60%;
+      transform: rotate(45deg);
+    }
+  }
+
+  &:active, &:focus {
+    transform: scale(0.9);
+  }
+}

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Services\RoleManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -43,25 +44,46 @@ class User implements UserInterface
     private $pseudo;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_deleted = false;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="author")
      */
     private $items;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ad", mappedBy="author", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Score", mappedBy="author")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $ads;
+    private $scores;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Grade", mappedBy="author", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ItemAd", mappedBy="author")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $grades;
+    private $itemAds;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="author")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $messages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ItemAdLike", mappedBy="author")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $itemAdLikes;
 
     public function __construct()
     {
         $this->items = new ArrayCollection();
-        $this->ads = new ArrayCollection();
-        $this->grades = new ArrayCollection();
+        $this->scores = new ArrayCollection();
+        $this->itemAds = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+        $this->itemAdLikes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,15 +119,17 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // guarantee every user at least has Default Role
+        $roleManager = new RoleManager();
+        $roles[] = $roleManager->getDefaultRole();
 
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        $roleManager = new RoleManager();
+        $this->roles = $roleManager->getRoles($roles);
 
         return $this;
     }
@@ -186,30 +210,30 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Ad[]
+     * @return Collection|Score[]
      */
-    public function getAds(): Collection
+    public function getScores(): Collection
     {
-        return $this->ads;
+        return $this->scores;
     }
 
-    public function addAd(Ad $ad): self
+    public function addScore(Score $score): self
     {
-        if (!$this->ads->contains($ad)) {
-            $this->ads[] = $ad;
-            $ad->setAuthor($this);
+        if (!$this->scores->contains($score)) {
+            $this->scores[] = $score;
+            $score->setAuthor($this);
         }
 
         return $this;
     }
 
-    public function removeAd(Ad $ad): self
+    public function removeScore(Score $score): self
     {
-        if ($this->ads->contains($ad)) {
-            $this->ads->removeElement($ad);
+        if ($this->scores->contains($score)) {
+            $this->scores->removeElement($score);
             // set the owning side to null (unless already changed)
-            if ($ad->getAuthor() === $this) {
-                $ad->setAuthor(null);
+            if ($score->getAuthor() === $this) {
+                $score->setAuthor(null);
             }
         }
 
@@ -217,33 +241,99 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Grade[]
+     * @return Collection|ItemAd[]
      */
-    public function getGrades(): Collection
+    public function getItemAds(): Collection
     {
-        return $this->grades;
+        return $this->itemAds;
     }
 
-    public function addGrade(Grade $grade): self
+    public function addItemAd(ItemAd $itemAd): self
     {
-        if (!$this->grades->contains($grade)) {
-            $this->grades[] = $grade;
-            $grade->setAuthor($this);
+        if (!$this->itemAds->contains($itemAd)) {
+            $this->itemAds[] = $itemAd;
+            $itemAd->setAuthor($this);
         }
 
         return $this;
     }
 
-    public function removeGrade(Grade $grade): self
+    public function getMessage(): ?ArrayCollection
     {
-        if ($this->grades->contains($grade)) {
-            $this->grades->removeElement($grade);
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemAdLike[]
+     */
+    public function getItemAdLikes(): Collection
+    {
+        return $this->itemAdLikes;
+    }
+
+    public function addItemAdLike(ItemAdLike $itemAdLike): self
+    {
+        if (!$this->itemAdLikes->contains($itemAdLike)) {
+            $this->itemAdLikes[] = $itemAdLike;
+            $itemAdLike->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemAdLike(ItemAdLike $itemAdLike): self
+    {
+        if ($this->itemAdLikes->contains($itemAdLike)) {
+            $this->itemAdLikes->removeElement($itemAdLike);
             // set the owning side to null (unless already changed)
-            if ($grade->getAuthor() === $this) {
-                $grade->setAuthor(null);
+            if ($itemAdLike->getAuthor() === $this) {
+                $itemAdLike->setAuthor(null);
             }
         }
 
         return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getMessages(): ?ArrayCollection
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param ArrayCollection $messages
+     */
+    public function setMessages(?ArrayCollection $messages): void
+    {
+        $this->messages = $messages;
+    }
+
+    public function getIsDeleted(): ?bool
+    {
+        return $this->is_deleted;
+    }
+
+    public function setIsDeleted(bool $is_deleted): self
+    {
+        $this->is_deleted = $is_deleted;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->email;
     }
 }

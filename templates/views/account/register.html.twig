@@ -1,0 +1,23 @@
+{% extends 'views/account/sign.html.twig' %}
+
+{# it's not clean but the only current way in found #}
+{% block sign_in_enable %}0{% endblock %}
+{% block sign_up_enable %}1{% endblock %}
+
+{% block form %}
+    {{ form_start(registrationForm) }}
+    {{ form_row(registrationForm.pseudo) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.password.first) }}
+    {% if registrationForm.password.second.vars.errors|length %}
+        {{ form_row(registrationForm.password.second,{'attr': {'class' : 'errors'  }}) }}
+    {% else %}
+        {{ form_row(registrationForm.password.second) }}
+    {% endif %}
+{% endblock %}
+
+{% block submit_button %}
+    <button class="btn btn-bg--submit">Sign up</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
+

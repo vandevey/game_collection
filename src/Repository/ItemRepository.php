@@ -16,25 +16,26 @@ class ItemRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Item::class);
+        parent::__construct($registry, Item::class); 
     }
 
-    // /**
-    //  * @return Item[] Returns an array of Item objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function countAll()
     {
         return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('count(i.id)')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getSingleScalarResult();
     }
-    */
+
+    public function getAuthorItem($id)
+    { 
+        return $this->createQueryBuilder('i')
+            ->leftJoin('i.author','a') 
+            ->where('a.id = '.$id )
+            
+            ->getQuery()
+            ->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Item

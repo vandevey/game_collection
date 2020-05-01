@@ -1,0 +1,61 @@
+{% extends 'views/base.html.twig' %}
+{% import "component/block.html.twig" as block %}
+
+{% block title %}New Item{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block body %}
+    <section id="item-create" class="modal">
+        <div class="modal-title">
+            <h3>Create Item</h3>
+        </div>
+
+        <div class="modal-form">
+            {{ form_start(form) }}
+            <article class="modal-create--data">
+                <div>
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.description) }}
+                    <!-- switch -->
+                    {{ form_widget(form.is_visible, { 'attr': {'class': 'hidden'}}) }}
+                    {{ block.switch(form.is_visible.vars.label, 'is_visible', true) }}
+                    <!-- switch -->
+                </div>
+                <div>
+                    <label for="">Images</label>
+                    <div class="inline-image">
+                        {{ form_widget(form.image_cover, { 'attr': {'class': 'hidden'}}) }}
+                        {{ block.image(form.image_cover.vars.label, 'image_cover', true, false, 128, 128) }}
+                        {{ form_widget(form.image_large, { 'attr': {'class': 'hidden'}}) }}
+                        {{ block.image(form.image_large.vars.label, 'image_large', form.image_large.vars.required, false, 254, 254) }}
+                    </div>
+                </div>
+            </article>
+            <!-- hide category row, done after -->
+            {{ form_widget(form.categories, { 'attr': {'class': 'hidden'} }) }}
+            {{ form_rest(form) }}
+            <div class="modal-entity--list">
+                <label>Categories</label>
+                <div class="modal-entity--listing">
+                    {% for category in form.categories %}
+                        {% set index = category.vars.value %}
+                        {% set entity = form.categories.vars.choices[index].data %}
+                        {{ block.category(entity.name, 'item',entity.icon, index) }}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="modal-button">
+                {% if app.request.get('_route') !=  'app_login' %}
+                    <a href="{{ app.request.headers.get('referer') }}" class="btn btn-bg--dark">Cancel</a>
+                {% else %}
+                    <a href="{{ path('show_all') }}" class="btn btn-bg--dark">Cancel</a>
+                {% endif %}
+                <button type="submit" class="btn btn-bg--submit">Create Item</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+    </section>
+{% endblock %}

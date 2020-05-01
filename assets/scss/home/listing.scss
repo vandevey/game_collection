@@ -1,0 +1,75 @@
+.Home {
+    &-ad {
+        
+    }
+
+    &-count {
+        color: $complementary;
+    }
+    &-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 30px;
+    }
+
+    &-listing {
+        background-color: $complementary;
+        width: calc(100% / 3 - 40px);
+        margin: 30px 20px;
+        border-radius: $br-element;
+        position: relative;
+        list-style: none;
+
+        &.Request {
+            &::before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(-50%, -50%);
+                content: "Request";
+                background-color: $blue;
+                padding: 5px;
+                border-radius: $br-button;
+                color: $complementary;
+            }
+        }
+
+        &.Offer {
+            &::before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(-50%, -50%);
+                content: "Offer";
+                background-color: $yellow;
+                padding: 5px;
+                border-radius: $br-button;
+                color: $complementary;
+            }
+        }
+       
+    }
+
+
+
+    &-link {
+        text-decoration: none;
+        padding: 20px 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        color: $primary;
+    }
+
+    &-desc {
+        text-align: center;
+    }
+
+    &-subtitle {
+        text-align: center;
+    }
+}

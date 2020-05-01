@@ -1,0 +1,111 @@
+data:
+  1:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 12.2
+        max_price: 15.4
+  2:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 12.2
+        max_price: 15.4
+  3:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 12.2
+        max_price: 15.4
+  4:
+    title: 'Annonce du nouveau jeu'
+    description: 'Un jeu null'
+    ref:
+      request:
+        item_name: 'The worst game'
+        item_description: 'Le pire jeu du monde'
+        min_price: 11.2
+  5:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 9.1
+        max_price: 12.4
+  6:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 9.1
+  7:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 9.1
+  8:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 9.1
+  9:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 9.1
+        max_price: 15.4
+  10:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 9.1
+  11:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 7.1
+  12:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 5
+        max_price: 15.4
+  13:
+    title: 'Annonce du nouveau DLC'
+    description: 'Un jeu incroyable'
+    ref:
+      request:
+        item_name: 'The best game'
+        item_description: 'Le meilleur jeu du monde'
+        min_price: 9.1
