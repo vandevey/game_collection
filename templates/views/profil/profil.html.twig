@@ -1,4 +1,5 @@
 {% extends 'views/base.html.twig' %}
+{% import 'component/block.html.twig' as block %}
 
 {% block body %}
     <section id="user-wrapper">
@@ -21,7 +22,21 @@
         </article>
 
         <article id='user-items'>
+            <nav id="user-items--nav">
+                <ul>
+                    <li>Collection</li>
+                </ul>
+            </nav>
+            <div id="user-items--wrapper">
+                <div id="user-items--listing">
 
+                </div>
+                <div id="user-items--actions">
+                    {{ block.new('New item', path('new_item')) }}
+                    {{ block.new('New offer', path('new_offer')) }}
+                    {{ block.new('New request', path('new_request')) }}
+                </div>
+            </div>
         </article>
     </section>
 {% endblock %}

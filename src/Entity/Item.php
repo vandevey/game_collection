@@ -61,6 +61,7 @@ class Item
     {
         $this->images = new ArrayCollection();
         $this->categories = new ArrayCollection();
+            $this->categories->getValues();
     }
 
 

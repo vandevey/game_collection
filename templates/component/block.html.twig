@@ -97,3 +97,12 @@
         }
     </script>
 {% endmacro %}
+
+{% macro new(text, link) %}
+    <a class="block-new" href="{{ link }}">
+        <span class="block-new--text">{{ text }}</span>
+        <div class="block-new--icon">
+            <img src="{{ asset('icons/cross_light.png', 'image') }}" alt="">
+        </div>
+    </a>
+{% endmacro %}
