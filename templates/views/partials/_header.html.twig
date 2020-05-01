@@ -14,7 +14,11 @@
     </nav>
 
     <div class='Header-login' id='header-login'>
-        <div id='header-username-avatar-wrapper'>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a id='header-username-avatar-wrapper' href="{{ path('show_profil', {'id': app.user.id}) }}">
+        {% else  %}
+            <div id='header-username-avatar-wrapper'>
+        {% endif %}
             <div id='header-username'>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     {{ app.user.pseudo }}
@@ -25,7 +29,12 @@
             <div id='header-login-avatar'>
                 <img src="{{ asset('avatars/gamer.png', 'image') }}" alt="">
             </div>
-        </div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            </a>
+        {% else %}
+            </div>
+        {% endif %}
+
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <a href="{{ path('app_logout') }}" class='Header-logout sign' id='header-logout' style='text-decoration: none'>

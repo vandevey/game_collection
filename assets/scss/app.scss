@@ -7,6 +7,7 @@
 @import "sign";
 @import "block";
 @import "modal";
+@import "profil/profil";
 
 * {
   z-index: $z-normal;
@@ -40,19 +41,7 @@ body {
 }
 
 #header-wrapper {
-  height: 150px;
+  height: $header-height;
   width: auto;
-}
-
-
-#user-add {
-  // temp
-  position: absolute;
-  bottom: 0;
-  height: 500px;
-  // temp
-  background-color: $complementary;
-  width: 100vw;
-  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
