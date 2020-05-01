@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Form\Ad\OfferType;
 use App\Form\Ad\RequestType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,6 +84,22 @@ class AdController extends AbstractController
             $requestEntity->getItemAd()->setCreatedAt();
 
             $entityManager = $this->getDoctrine()->getManager();
+
+            $categories = $requestEntity->getCategories();
+            if ($categories->isEmpty()) {
+                $form->addError(new FormError('Your item need to have one genre or more.'));
+                return $this->render('views/ad/new.html.twig', [
+                    'form' => $form->createView(),
+                    'title' => 'Create a request',
+                    'type' => 'request',
+                ]);
+            }
+
+            foreach ($categories as $category) {
+                $category->addRequest($requestEntity);
+                $entityManager->persist($category);
+            }
+
             $entityManager->persist($requestEntity);
             $entityManager->flush();
 

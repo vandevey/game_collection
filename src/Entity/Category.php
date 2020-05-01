@@ -48,10 +48,16 @@ class Category
      */
     private $icon;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Request", mappedBy="categories")
+     */
+    private $requests;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
         $this->children = new ArrayCollection();
+        $this->requests = new ArrayCollection();
     }
 
 
@@ -166,6 +172,34 @@ class Category
     public function setIcon(?string $icon): self
     {
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Request[]
+     */
+    public function getRequests(): Collection
+    {
+        return $this->requests;
+    }
+
+    public function addRequest(Request $request): self
+    {
+        if (!$this->requests->contains($request)) {
+            $this->requests[] = $request;
+            $request->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRequest(Request $request): self
+    {
+        if ($this->requests->contains($request)) {
+            $this->requests->removeElement($request);
+            $request->removeCategory($this);
+        }
 
         return $this;
     }

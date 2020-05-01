@@ -1,8 +1,8 @@
-{% macro category(name, icon, value, width = 64, height = 64) %}
+{% macro category(name, entity, icon, value, width = 64, height = 64) %}
 <div class="block-form">
     <input type="checkbox"
            id="item_categoies_{{ value }}"
-           name="item[categories][]"
+           name="{{ entity }}[categories][]"
            value="{{ value }}"
             hidden>
     <label for="item_categoies_{{ value }}">

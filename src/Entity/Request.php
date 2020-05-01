@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,16 +17,6 @@ class Request
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $itemName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $itemDescription;
 
     /**
      * @ORM\Column(type="integer")
@@ -42,33 +34,19 @@ class Request
      */
     private $itemAd;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="requests")
+     */
+    private $categories;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getItemName(): ?string
-    {
-        return $this->itemName;
-    }
-
-    public function setItemName(string $itemName): self
-    {
-        $this->itemName = $itemName;
-
-        return $this;
-    }
-
-    public function getItemDescription(): ?string
-    {
-        return $this->itemDescription;
-    }
-
-    public function setItemDescription(string $itemDescription): self
-    {
-        $this->itemDescription = $itemDescription;
-
-        return $this;
     }
 
     public function getMinPrice(): ?int
@@ -103,6 +81,32 @@ class Request
     public function setItemAd(?ItemAd $itemAd): self
     {
         $this->itemAd = $itemAd;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+        }
 
         return $this;
     }
