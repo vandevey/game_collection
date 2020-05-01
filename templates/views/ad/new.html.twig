@@ -58,8 +58,11 @@
             </div>
         {% endif %}
         <div class="modal-button">
-            {# <a href="{{ path('show_all') }}" class="btn btn-bg--dark">Cancel</a>#}
-            <a href="" class="btn btn-bg--dark">Cancel</a>
+            {% if app.request.get('_route') !=  'app_login' %}
+                <a href="{{ app.request.headers.get('referer') }}" class="btn btn-bg--dark">Cancel</a>
+            {% else %}
+                <a href="{{ path('show_all') }}" class="btn btn-bg--dark">Cancel</a>
+            {% endif %}
             {{ form_row(form.submit, {'attr': {'class': 'btn btn-bg--submit'}}) }}
         </div>
         {{ form_end(form) }}

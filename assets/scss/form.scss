@@ -1,6 +1,6 @@
 form {
   input[type=text], input[type=password],
-  input[type=email], textarea{
+  input[type=email], textarea {
     border: none;
     padding: 8px;
     margin: {
@@ -26,6 +26,7 @@ form {
 
   label {
     font-size: $fs-24;
+
     .color--light {
       color: $complementary
     }
@@ -70,16 +71,4 @@ form {
 
 a.btn {
   text-decoration: none;
-}
-
-#user-detail {
-  label {
-    color: white;
-  }
-
-  form .col > div {
-    display: flex;
-    flex-direction: column;
-    flex: 2;
-  }
 }
