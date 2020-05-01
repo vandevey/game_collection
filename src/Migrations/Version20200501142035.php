@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200430114933 extends AbstractMigration
+final class Version20200501142035 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -27,7 +27,7 @@ final class Version20200430114933 extends AbstractMigration
         $this->addSql('CREATE TABLE category_item (category_id INTEGER NOT NULL, item_id INTEGER NOT NULL, PRIMARY KEY(category_id, item_id))');
         $this->addSql('CREATE INDEX IDX_94805F5912469DE2 ON category_item (category_id)');
         $this->addSql('CREATE INDEX IDX_94805F59126F525E ON category_item (item_id)');
-        $this->addSql('CREATE TABLE image (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, item_id INTEGER DEFAULT NULL, "key" VARCHAR(255) NOT NULL, extension VARCHAR(255) NOT NULL)');
+        $this->addSql('CREATE TABLE image (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, item_id INTEGER DEFAULT NULL, path VARCHAR(255) NOT NULL)');
         $this->addSql('CREATE INDEX IDX_C53D045F126F525E ON image (item_id)');
         $this->addSql('CREATE TABLE item (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author_id INTEGER DEFAULT NULL, offer_id INTEGER DEFAULT NULL, name VARCHAR(255) NOT NULL, description CLOB NOT NULL, is_visible BOOLEAN NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL)');
         $this->addSql('CREATE INDEX IDX_1F1B251EF675F31B ON item (author_id)');
@@ -39,7 +39,7 @@ final class Version20200430114933 extends AbstractMigration
         $this->addSql('CREATE TABLE item_ad_like (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author_id INTEGER DEFAULT NULL, item_ad_id INTEGER DEFAULT NULL, liked BOOLEAN NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL)');
         $this->addSql('CREATE INDEX IDX_1FF13482F675F31B ON item_ad_like (author_id)');
         $this->addSql('CREATE INDEX IDX_1FF134826593CE46 ON item_ad_like (item_ad_id)');
-        $this->addSql('CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author_id INTEGER NOT NULL, message_thread_id INTEGER DEFAULT NULL, content VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL)');
+        $this->addSql('CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author_id INTEGER DEFAULT NULL, message_thread_id INTEGER DEFAULT NULL, content VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL)');
         $this->addSql('CREATE INDEX IDX_B6BD307FF675F31B ON message (author_id)');
         $this->addSql('CREATE INDEX IDX_B6BD307F8829462F ON message (message_thread_id)');
         $this->addSql('CREATE TABLE message_thread (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, item_ad_id INTEGER DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL)');

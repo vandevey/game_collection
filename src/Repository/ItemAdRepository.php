@@ -23,7 +23,7 @@ class ItemAdRepository extends ServiceEntityRepository
     public function getAllRecent()
     {
         return $this->createQueryBuilder('ad')
-            ->orderBy('ad.updatedAt', 'ASC')
+            ->orderBy('ad.updatedAt', 'DESC')
             ->getQuery() 
             ->getResult();
            
