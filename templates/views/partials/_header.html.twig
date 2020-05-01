@@ -1,9 +1,13 @@
-<section id='header'>
-    <div id='header-logo'>
+<section class='Header' id='header'>
+    <a class='Header-logo' href="/">
         <img src="{{ asset('logos/logo_white_min.png', 'image') }}" alt="logo" width="64" height="64">
-    </div>
+    </a>
+    <nav class='Header-nav'>
+        <a class='Header-link' id="header-link-offer" href="{{ path('show_offer') }}">Offer</a>
+        <a class='Header-link' id="header-link-request" href="{{ path('show_request') }}">Request</a>
+    </nav>
 
-    <div id='header-login'>
+    <div class='Header-login' id='header-login'>
         <div id='header-username-avatar-wrapper'>
             <div id='header-username'>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -18,11 +22,11 @@
         </div>
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="{{ path('app_logout') }}" id='header-logout' class='header-sign' style='text-decoration: none'>
+            <a href="{{ path('app_logout') }}" class='Header-logout sign' id='header-logout' style='text-decoration: none'>
                 <div>Log out</div>
             </a>
         {% else %}
-            <a href="{{ path('app_login') }}" id='header-signin' class='header-sign' style='text-decoration: none'>
+            <a href="{{ path('app_login') }}" class='Header-signin sign' id='header-signin' style='text-decoration: none'>
                 <div>Sign in</div>
             </a>
         {% endif %}
