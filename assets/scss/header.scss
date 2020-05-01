@@ -35,6 +35,10 @@
         &:last-child {
             border-radius: 0 0 10px 0;
         }
+
+        &.active {
+            border: solid 2px $blue;
+        }
     }
 
     &-logo {

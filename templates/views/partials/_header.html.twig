@@ -3,8 +3,12 @@
         <img src="{{ asset('logos/logo_white_min.png', 'image') }}" alt="logo" width="64" height="64">
     </a>
     <nav class='Header-nav'>
-        <a class='Header-link' id="header-link-offer" href="{{ path('show_offer') }}">Offer</a>
-        <a class='Header-link' id="header-link-request" href="{{ path('show_request') }}">Request</a>
+        {% if page is defined  %}
+            {% set active = page %}
+        {% endif %}
+        
+        <a class='Header-link {{ (active == 'offer') ? 'active' }}' id="header-link-offer" href="{{ path('show_offer') }}">Offer</a>
+        <a class='Header-link {{ (active == 'request') ? 'active'  }}' id="header-link-request" href="{{ path('show_request') }}">Request</a>
     </nav>
 
     <div class='Header-login' id='header-login'>
