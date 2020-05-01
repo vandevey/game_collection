@@ -16,7 +16,7 @@ class ItemRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Item::class);
+        parent::__construct($registry, Item::class); 
     }
 
     public function countAll()
@@ -25,6 +25,16 @@ class ItemRepository extends ServiceEntityRepository
             ->select('count(i.id)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function getAuthorItem($id)
+    { 
+        return $this->createQueryBuilder('i')
+            ->leftJoin('i.author','a') 
+            ->where('a.id = '.$id )
+            
+            ->getQuery()
+            ->getResult();
     }
 
     /*

@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class AdListingController
  * @package App\Controller
- */
+ */ 
 class AdListingController extends AbstractController
 {
      /**

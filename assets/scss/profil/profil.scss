@@ -3,9 +3,12 @@
   min-height: calc(100vh - #{$header-height});
   display: flex;
   flex-direction: column;
+  margin: 150px 0 0;
 
   #user-detail {
     margin-bottom: 20px;
+    width: 80%;
+    margin: 0 auto;
     label {
       color: white;
     }
@@ -22,9 +25,9 @@
           flex-direction: column;
           justify-content: flex-end;
 
-          margin-right: 20px;
+          padding-right: 20px;
           input {
-            width: 350px;
+            width: calc(100% / 3 - 30px);
           }
         }
       }
@@ -36,19 +39,35 @@
 
       .form-col {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        & > div {
+          width: calc(100% / 3 - 20px);
+          input {
+            width: 100%;
+          }
+
+          &:last-child {
+            width: 200px;
+            margin: 20px 0 0;
+          }
+        }
       }
 
     }
   }
-
+ 
   #user-items {
     flex: 1;
     width: 100%;
-
+    margin: 50px 0 0;
     display: flex;
+    
     flex-direction: column;
+    padding: 0 10% 100px;
     & > #user-items--nav {
       height: 50px;
+     
     }
     & > #user-items--wrapper {
       flex: 1;
@@ -59,16 +78,45 @@
 
       display: flex;
       flex-direction: row;
-      & > #user-items--listing {
+      & > #user-items--list {
         flex: 2;
-      }
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
+
+        & #user-items--listing {
+          width: calc(100% / 4 - 20px);
+          margin: 20px 10px;
+
+          & > picture {
+            width: 100%;
+            display: flex;
+            & > img {
+              object-fit: contain;
+              width: 100%;
+            }
+          }
+
+          & > span {
+            color: $primary;
+            padding: 10px 0 0;
+            display: block;
+          }
+    
+        }
+      } 
 
       & > #user-items--actions {
-        flex: 1;
+        position: sticky;
+        top: 30px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: flex-end;
+        margin: 0 20px 0 20px;
+        height: 220px;
       }
     }
   }

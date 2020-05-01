@@ -3,17 +3,18 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Item;
 use App\Entity\User;
 use App\Form\Profil\ProfilType;
 use App\Services\PasswordManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ProfilController extends AbstractController
+class ProfilController extends AbstractController 
 {
 
     /**
@@ -22,16 +23,17 @@ class ProfilController extends AbstractController
      * @param User $user
      * @param Request $request
      * @param PasswordManager $passwordManager
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function show(User $user, Request $request, PasswordManager $passwordManager)
+    public function show(User $user, Request $request, PasswordManager $passwordManager, EntityManagerInterface $entityManager)
     {
         $form = $this->createForm(ProfilType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
-            $user = $form->getData();
+            $user = $form->getData(); 
 
             // change password
             $oldPassword = $form->get('oldPassword');
@@ -44,10 +46,13 @@ class ProfilController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
         }
-
+        $authorItem = $entityManager->getRepository(Item::class)->getAuthorItem($user->getId());
+        
         return $this->render('views/profil/profil.html.twig', [
             'form' => $form->createView(),
-            'user' => $user
+            'user' => $user,
+            'items' => $authorItem,
+
         ]);
     }
 }
