@@ -1,0 +1,23 @@
+{% extends 'views/base.html.twig' %}
+{% from 'component/block.html.twig' import category %}
+
+{% block body %}
+    <section id="home">
+        <aside class="home-categories">
+            <div class="home-categories--title">
+                <p>Categories</p>
+            </div>
+            <form action="{{ path(app.request.get('_route')) }}" method="post">
+                <button type="submit" class="btn btn-bg--submit">Filter</button>
+                <div class="home-categories--listing">
+                    {% for category in categories %}
+                        {{ category(category.name, 'item', category.icon, category.id, 64, 64, 'dark', category.selected) }}
+                    {% endfor %}
+                </div>
+            </form>
+        </aside>
+        <div class="home-listing-wrapper">
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+{% endblock %}

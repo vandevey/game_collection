@@ -1,5 +1,4 @@
 .Home {
-
     &-ad {
         
     }
@@ -21,7 +20,7 @@
         border-radius: $br-element;
         position: relative;
         list-style: none;
-        
+
         &.Request {
             &::before {
                 position: absolute;

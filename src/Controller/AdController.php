@@ -117,6 +117,8 @@ class AdController extends AbstractController
 
     /**
      * @Route("/ad/{id}", name="detail")
+     * @param ItemAd $itemAd
+     * @return Response
      */
     public function detail(ItemAd $itemAd)
     {   

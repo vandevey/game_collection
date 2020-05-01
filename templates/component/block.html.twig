@@ -1,9 +1,10 @@
-{% macro category(name, entity, icon, value, width = 64, height = 64) %}
+{% macro category(name, entity, icon, value, width = 64, height = 64, color = 'light', checked = false) %}
 <div class="block-form">
     <input type="checkbox"
            id="item_categoies_{{ value }}"
            name="{{ entity }}[categories][]"
            value="{{ value }}"
+           {% if checked %}checked{% endif %}
             hidden>
     <label for="item_categoies_{{ value }}">
         <img class="block-icon"
@@ -11,13 +12,13 @@
              width="{{ width }}"
              height="{{ height }}"
              alt="">
-        <span class="block-name">{{ name }}</span>
-        <span class="block-selected-indicator"></span>
+        <span class="block-name {{ color }}">{{ name }}</span>
+        <span class="block-selected-indicator {{ color }}"></span>
     </label>
 </div>
 {% endmacro %}
 
-{% macro item(name, cover, value, width = 64, height = 64) %}
+{% macro item(name, cover, value, width = 64, height = 64, color = 'light') %}
     <div class="block-form">
         <input type="radio"
                id="offer_item_c_{{ value }}"
@@ -30,8 +31,8 @@
                  width="{{ width }}"
                  height="{{ height }}"
                  alt="">
-            <span class="block-name">{{ name }}</span>
-            <span class="block-selected-indicator"></span>
+            <span class="block-name {{ color }}">{{ name }}</span>
+            <span class="block-selected-indicator {{ color }}"></span>
         </label>
     </div>
 {% endmacro %}

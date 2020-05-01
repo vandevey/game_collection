@@ -10,14 +10,12 @@
 @import "detail";
 @import "profil/profil";
 
-* {
-  z-index: $z-normal;
-}
-
 // home
 @import "home/listing";
+@import "home/home";
 
 * {
+  z-index: $z-normal;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }

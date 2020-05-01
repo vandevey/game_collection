@@ -9,6 +9,17 @@
   align-items: center;
 
   transition: transform 0.1s ease;
+
+  .block-name {
+    &.light {
+      color: $complementary!important;
+    }
+
+    &.dark {
+      color: $primary!important;
+    }
+  }
+
   & > label {
     position: relative;
 
@@ -36,12 +47,25 @@
   & > input:checked {
     + label {
       .block-selected-indicator {
-        background-color: $complementary;
+        &.light {
+          background-color: $complementary;
+        }
+
+        &.dark {
+          background-color: $primary;
+        }
+
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
       }
 
       .block-name {
-        color: $primary;
+        &.light {
+          color: $primary!important;
+        }
+
+        &.dark {
+          color: $complementary!important;
+        }
       }
     }
 
