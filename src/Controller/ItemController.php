@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Image;
 use App\Entity\Item;
+use App\Entity\User;
 use App\Form\Items\ItemType;
 use App\Services\ImageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -81,6 +82,10 @@ class ItemController extends AbstractController
             }
 
             $entityManager->flush();
+
+            return $this->redirectToRoute('show_profil', [
+                'id' => $user->getId()
+            ]);
         }
 
         return $this->render('views/item/new.html.twig', [

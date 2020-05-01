@@ -21,6 +21,7 @@ class ItemAdType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('is_visible', CheckboxType::class, [
                 'label' => 'Visible',
+                'required' => false,
                 'attr' => [
                     'class' => 'switch'
                 ],

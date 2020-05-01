@@ -48,6 +48,9 @@ class AdController extends AbstractController
             $entityManager->persist($offer);
             $entityManager->flush();
 
+            return $this->redirectToRoute('show_profil', [
+                'id' => $user->getId()
+            ]);
         }
 
         return $this->render('views/ad/new.html.twig', [
@@ -82,6 +85,10 @@ class AdController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($requestEntity);
             $entityManager->flush();
+
+            return $this->redirectToRoute('show_profil', [
+                'id' => $user->getId()
+            ]);
         }
 
         return $this->render('views/ad/new.html.twig', [

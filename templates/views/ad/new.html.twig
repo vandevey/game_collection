@@ -18,7 +18,10 @@
                 {{ form_row(form.itemAd.title) }}
                 {{ form_row(form.itemAd.description) }}
                 {% if type == "request" %}
-                    {{ form_row(form.itemAd.is_visible) }}
+                    <!-- switch -->
+                    {{ form_widget(form.itemAd.is_visible, { 'attr': {'class': 'hidden'}}) }}
+                    {{ block.switch(form.itemAd.is_visible.vars.label, type, ['itemAd', 'is_visible'], true) }}
+                    <!-- switch -->
                 {% endif %}
             </div>
             <div>
@@ -26,7 +29,7 @@
                     {{ form_row(form.price) }}
                     <!-- switch -->
                     {{ form_widget(form.itemAd.is_visible, { 'attr': {'class': 'hidden'}}) }}
-                    {{ block.switch(form.itemAd.is_visible.vars.label, 'is_visible', true) }}
+                    {{ block.switch(form.itemAd.is_visible.vars.label, type,['itemAd', 'is_visible'], true) }}
                     <!-- switch -->
                 {% elseif type == "request" %}
                     {{ form_row(form.itemName) }}

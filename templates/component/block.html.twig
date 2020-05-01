@@ -36,11 +36,23 @@
     </div>
 {% endmacro %}
 
-{% macro switch(label, name, checked = false) %}
+{% macro switch(label, name, children, checked = false) %}
+    {% if children is iterable %}
+        {% set inputName = ''%}
+        {% for iName in children %}
+            {% set inputName = inputName ~ '[' ~ iName ~ ']'%}
+        {% endfor %}
+    {% else %}
+        {% set inputName = '[' ~ name ~ ']'%}
+    {% endif %}
     <div class="block-switch">
-        <label for="block_switch_label" class="block-switch--label" name="item[{{ name }}]">{{ label }}</label>
+        <label for="block_switch_label" class="block-switch--label">{{ label }}</label>
         <label for="block_switch_{{ name }}" class="block-switch--slider">
-            <input type="checkbox" id="block_switch_{{ name }}" {% if checked %}checked{% endif %} hidden>
+            <input type="checkbox"
+                   id="block_switch_{{ name }}"
+                   name="{{ name }}{{ inputName }}"
+                   value="1"
+                   {% if checked %}checked{% endif %}>
             <span class="block-switch--slide"></span>
         </label>
     </div>
