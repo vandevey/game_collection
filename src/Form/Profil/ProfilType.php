@@ -46,7 +46,11 @@ class ProfilType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('submit', SubmitType::class);
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-bg--submit'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

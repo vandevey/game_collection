@@ -19,6 +19,14 @@ class RequestRepository extends ServiceEntityRepository
         parent::__construct($registry, Request::class);
     }
 
+    public function findAll()
+    {
+        return $this->createQueryBuilder('ad')
+            ->orderBy('ad.id', 'DESC')
+            ->getQuery() 
+            ->getResult();
+    }
+
     // /**
     //  * @return Request[] Returns an array of Request objects
     //  */

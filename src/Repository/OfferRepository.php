@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Repository;
-
+ 
 use App\Entity\Offer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -18,6 +18,15 @@ class OfferRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Offer::class);
     }
+
+    public function findAll()
+    {
+        return $this->createQueryBuilder('ad')
+            ->orderBy('ad.id', 'DESC')
+            ->getQuery() 
+            ->getResult();
+    }
+    
 
     // /**
     //  * @return Offer[] Returns an array of Offer objects
