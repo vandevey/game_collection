@@ -8,6 +8,7 @@ use App\Entity\Category;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -18,7 +19,13 @@ use Symfony\Component\Validator\Constraints\File;
 
 class ItemType extends AbstractType
 {
-    private const CAT_GENRE_ID = 1;
+    /** @var integer */
+    private $cat_genre_id;
+
+    public function __construct(ParameterBagInterface $parameterBag)
+    {
+        $this->cat_genre_id = $parameterBag->get('cat_genre');
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -74,7 +81,7 @@ class ItemType extends AbstractType
                             'c.parent',
                             'cp',
                             Join::WITH,
-                            "cp.id = " . self::CAT_GENRE_ID
+                            "cp.id = " . $this->cat_genre_id
                         )
                         ->orderBy('c.name', 'ASC');
                 },
