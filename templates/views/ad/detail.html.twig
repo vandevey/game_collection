@@ -1,0 +1,37 @@
+{% extends 'views/base.html.twig' %}
+{% import "component/block.html.twig" as block %}
+
+{% block title %}
+	Page nom
+{% endblock %}
+
+{% set offer = itemAd.getOffer() %}
+{% set request = itemAd.getRequest() %}
+
+
+{% block body %}
+	<section class="Detail">
+
+		<h1>{{ itemAd.title }}</h1>
+		<h2>Offre / Request</h2>
+		<p>{{ itemAd.description }}</p>
+		<p>{{ itemAd.author.pseudo }}</p>
+		<p>{{ itemAd.author.email }}</p>
+
+		{% if offer %}
+			<p>{{ offer.price }}
+				€</p>
+			<p>{{ offer.item }}</p>
+            {% if offer.item.images.get('0') %}
+            	<img src="{{ asset('items/' ~ offer.item.images.0.path, 'image') }}" title="img"> 
+            {% endif %}
+            
+		
+		{% elseif request %}
+			<span>{{ request.minPrice }} € - {{ request.maxPrice }} €</p>
+		{% endif %}
+    
+
+	</section>
+
+{% endblock %}

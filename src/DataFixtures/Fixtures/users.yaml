@@ -4,7 +4,7 @@ data:
     roles: [ USER, COLLECTOR ]
     pseudo: 'John Doe'
     password: 'jo.doe' # password will be encoded
-  users.2:
+  users.2: 
     email: 'jane.doe@email.com'
     roles: [ USER, COLLECTOR ]
     pseudo: 'Jane Doe'

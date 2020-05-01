@@ -59,7 +59,6 @@ class ItemController extends AbstractController
                 $entityManager->persist($category);
             }
 
-
             // image
             $coverImageName = $imageManager->download($form->get('image_cover')->getData(), 'items');
             if ($coverImageName) {
@@ -87,5 +86,5 @@ class ItemController extends AbstractController
         return $this->render('views/item/new.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
+    }  
 }

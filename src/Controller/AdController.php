@@ -3,7 +3,7 @@
 
 namespace App\Controller;
 
-
+use App\Entity\ItemAd;
 use App\Entity\Offer;
 use App\Entity\Request as RequestEntity;
 use App\Entity\User;
@@ -17,11 +17,11 @@ use Symfony\Component\HttpFoundation\Request;
 class AdController extends AbstractController
 {
     /**
- * @Route("/ad/offer/new", name="new_offer")
- *
- * @param Request $request
- * @return Response
- */
+     * @Route("/ad/offer/new", name="new_offer")
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function newOffer(Request $request)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -95,6 +95,16 @@ class AdController extends AbstractController
             'form' => $form->CreateView(),
             'title' => 'Create a request',
             'type' => 'request',
+        ]);
+    }
+
+    /**
+     * @Route("/ad/{id}", name="detail")
+     */
+    public function detail(ItemAd $itemAd)
+    {   
+        return $this->render('views/ad/detail.html.twig', [
+            'itemAd' => $itemAd,
         ]);
     }
 }
