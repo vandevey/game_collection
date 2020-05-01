@@ -20,17 +20,43 @@ class ItemAdRepository extends ServiceEntityRepository
     }
 
     
-    public function getAllRecent()
+    public function getAllRecent(array $categories = null)
     {
+        // to update, this very bad sorry
+        if (null !== $categories) {
+            return array_merge(
+                $this->getRequest($categories),
+                $this->getOffer($categories)
+            );
+        }
+
         return $this->createQueryBuilder('ad')
+            ->where('ad.is_visible = true')
             ->orderBy('ad.updatedAt', 'DESC')
             ->getQuery() 
             ->getResult();
            
     }
  
-    public function getOffer()
+    public function getOffer(array $categories = null)
     {
+        if (null !== $categories) {
+            $categoriesString = '(' . implode(',', $categories) . ')';
+
+            return $this->createQueryBuilder('ad')
+                ->where('ad.is_visible = true')
+                ->leftJoin('ad.offer', 'o')
+                ->leftJoin('o.item', 'i')
+                ->leftJoin('i.categories', 'ci')
+                ->andWhere('ci.id in ' . $categoriesString)
+                ->leftJoin('ad.request','r')
+                ->having('COUNT(r.id) = 0')
+                ->orderBy('ad.updatedAt', 'DESC')
+                ->groupBy('ad.title')
+                ->getQuery()
+                ->getResult();
+        }
+
         return $this->createQueryBuilder('ad')
             ->leftJoin('ad.request','o')
             ->having('COUNT(o.id) = 0')
@@ -41,8 +67,24 @@ class ItemAdRepository extends ServiceEntityRepository
            
     }
 
-    public function getRequest()
+    public function getRequest(array $categories = null)
     {
+        if (null !== $categories) {
+            $categoriesString = '(' . implode(',', $categories) . ')';
+
+            return $this->createQueryBuilder('ad')
+                ->where('ad.is_visible = true')
+                ->leftJoin('ad.offer','o')
+                ->having('COUNT(o.id) = 0')
+                ->leftJoin('ad.request', 'r')
+                ->leftJoin('r.categories', 'cr')
+                ->andWhere('cr.id in ' . $categoriesString)
+                ->orderBy('ad.updatedAt', 'DESC')
+                ->groupBy('ad.title')
+                ->getQuery()
+                ->getResult();
+        }
+
         return $this->createQueryBuilder('ad')
         ->leftJoin('ad.offer','o')
         ->having('COUNT(o.id) = 0')
@@ -51,34 +93,4 @@ class ItemAdRepository extends ServiceEntityRepository
         ->getQuery() 
         ->getResult();
     }
-    
-
-    // /**
-    //  * @return ItemAd[] Returns an array of ItemAd objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?ItemAd
-    {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
