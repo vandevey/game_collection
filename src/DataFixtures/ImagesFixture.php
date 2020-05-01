@@ -36,7 +36,7 @@ class ImagesFixture extends AbstractFixtures implements DependentFixtureInterfac
     {
         $tempItems = $this->getTempData(Item::class);
         foreach ($tempItems as $tempItem) {
-            if (!($imageName = $this->imageManager->download($tempItem['url'], $tempItem['refId'], 'items'))) {
+            if (!($imageName = $this->imageManager->downloadFromUrl($tempItem['url'], $tempItem['refId'], 'items'))) {
                 continue;
             }
             $image = new Image();
@@ -45,10 +45,7 @@ class ImagesFixture extends AbstractFixtures implements DependentFixtureInterfac
                     $this->buildReferenceName($tempItem['refId'], ItemsFixtures::RESOURCE_NAME)
                 )
             );
-
-            $imageNameParts = pathinfo($imageName);
-            $image->setKey($imageNameParts['filename']);
-            $image->setExtension($imageNameParts['extension']);
+            $image->setPath($imageName);
 
             $manager->persist($image);
         }

@@ -9,7 +9,7 @@
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     {{ app.user.pseudo }}
                 {% else %}
-                    Hello guess !
+                    Hello guess
                 {% endif %}
             </div>
             <div id='header-login-avatar'>
@@ -18,12 +18,13 @@
         </div>
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="{{ path('app_logout') }}" style='text-decoration: none'>
-                <div id='header-logout' class='header-sign'>Log out</div>
+            <a href="{{ path('app_logout') }}" id='header-logout' class='header-sign' style='text-decoration: none'>
+                <div>Log out</div>
             </a>
         {% else %}
-            <a href="{{ path('app_login') }}" style='text-decoration: none' id='header-signin' class='header-sign'>Sign
-                in</a>
+            <a href="{{ path('app_login') }}" id='header-signin' class='header-sign' style='text-decoration: none'>
+                <div>Sign in</div>
+            </a>
         {% endif %}
     </div>
 </section>

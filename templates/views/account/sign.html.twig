@@ -5,7 +5,7 @@
 {% block header %}{% endblock %}
 
 {% block body %}
-    <section id="sign">
+    <section id="sign" class="modal">
         <div id="sign-choice">
             <div id="sign-in" class="sign-menu" data-enable='{% block sign_in_enable %}1{% endblock %}'>
                 <a href="{{ path('app_login') }}">
@@ -24,9 +24,12 @@
                 {% block form %}{% endblock %}
             </div>
 
-            <div id="sign-button">
-{#                <a href="{{ path('show_all') }}" class="btn btn-bg--dark">Cancel</a>#}
-                <a href="" class="btn btn-bg--dark">Cancel</a>
+            <div class="modal-button">
+                {% if app.request.get('_route') !=  'app_login' %}
+                    <a href="{{ app.request.headers.get('referer') }}" class="btn btn-bg--dark">Cancel</a>
+                {% else %}
+                    <a href="{{ path('show_all') }}" class="btn btn-bg--dark">Cancel</a>
+                {% endif %}
                 {% block submit_button %}{% endblock %}
             </div>
         </div>

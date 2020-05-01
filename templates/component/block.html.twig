@@ -1,0 +1,99 @@
+{% macro category(name, icon, value, width = 64, height = 64) %}
+<div class="block-form">
+    <input type="checkbox"
+           id="item_categoies_{{ value }}"
+           name="item[categories][]"
+           value="{{ value }}"
+            hidden>
+    <label for="item_categoies_{{ value }}">
+        <img class="block-icon"
+             src="{{ asset('categories/' ~ icon ~ '.png', 'image') }}"
+             width="{{ width }}"
+             height="{{ height }}"
+             alt="">
+        <span class="block-name">{{ name }}</span>
+        <span class="block-selected-indicator"></span>
+    </label>
+</div>
+{% endmacro %}
+
+{% macro item(name, cover, value, width = 64, height = 64) %}
+    <div class="block-form">
+        <input type="radio"
+               id="offer_item_c_{{ value }}"
+               name="offer[item]"
+               value="{{ value }}"
+               hidden>
+        <label for="offer_item_c_{{ value }}">
+            <img class="block-icon"
+                 src="{{ asset('item/' ~ value ~ '.jpg', 'image') }}"
+                 width="{{ width }}"
+                 height="{{ height }}"
+                 alt="">
+            <span class="block-name">{{ name }}</span>
+            <span class="block-selected-indicator"></span>
+        </label>
+    </div>
+{% endmacro %}
+
+{% macro switch(label, name, children, checked = false) %}
+    {% if children is iterable %}
+        {% set inputName = ''%}
+        {% for iName in children %}
+            {% set inputName = inputName ~ '[' ~ iName ~ ']'%}
+        {% endfor %}
+    {% else %}
+        {% set inputName = '[' ~ name ~ ']'%}
+    {% endif %}
+    <div class="block-switch">
+        <label for="block_switch_label" class="block-switch--label">{{ label }}</label>
+        <label for="block_switch_{{ name }}" class="block-switch--slider">
+            <input type="checkbox"
+                   id="block_switch_{{ name }}"
+                   name="{{ name }}{{ inputName }}"
+                   value="1"
+                   {% if checked %}checked{% endif %}>
+            <span class="block-switch--slide"></span>
+        </label>
+    </div>
+{% endmacro %}
+
+{% macro image(label, name, required, displayLabel = true, width = 100, height= 100, marginTop = false) %}
+    <div class="block-image"
+         style="{% if marginTop != false %}margin-top:{{ marginTop }}px!important;{% endif %}">
+        {% if displayLabel %}
+            <label for="block_image_label" class="block-image--label">{{ label }}</label>
+        {% endif %}
+        <label for="block_image_{{ name }}" class="block-image--button" style="width: {{ width }}px; height: {{ height }}px">
+             <p class="block-image--text">{{ label }} image</p>
+            <input type="file"
+                   id="block_image_{{ name }}"
+                   onchange="blockDisplayImage(this)"
+                   name="item[{{ name }}]"
+                   {% if required %}required{% endif %}
+                   hidden>
+            <img width="{{ width }}" height="{{ height }}" alt="" src="">
+        </label>
+    </div>
+
+    <script>
+        function blockDisplayImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                const parent = input.parentElement;
+
+                reader.onload = function (e) {
+                    const image = input.nextElementSibling;
+                    const text = parent.querySelector('p');
+                    image.setAttribute('src', e.target.result);
+                    image.style.display = 'block';
+                    if (text) {
+                        text.className += ' top-left'
+                    }
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+{% endmacro %}

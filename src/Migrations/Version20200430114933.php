@@ -10,19 +10,19 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200428091055 extends AbstractMigration
+final class Version20200430114933 extends AbstractMigration
 {
-    public function getDescription(): string
+    public function getDescription() : string
     {
         return '';
     }
 
-    public function up(Schema $schema): void
+    public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
 
-        $this->addSql('CREATE TABLE category (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, parent_id INTEGER DEFAULT NULL, name VARCHAR(255) NOT NULL, is_active BOOLEAN NOT NULL)');
+        $this->addSql('CREATE TABLE category (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, parent_id INTEGER DEFAULT NULL, name VARCHAR(255) NOT NULL, is_active BOOLEAN NOT NULL, icon VARCHAR(255) DEFAULT NULL)');
         $this->addSql('CREATE INDEX IDX_64C19C1727ACA70 ON category (parent_id)');
         $this->addSql('CREATE TABLE category_item (category_id INTEGER NOT NULL, item_id INTEGER NOT NULL, PRIMARY KEY(category_id, item_id))');
         $this->addSql('CREATE INDEX IDX_94805F5912469DE2 ON category_item (category_id)');
@@ -36,9 +36,6 @@ final class Version20200428091055 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_DAB6D85653C674EE ON item_ad (offer_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_DAB6D856427EB8A5 ON item_ad (request_id)');
         $this->addSql('CREATE INDEX IDX_DAB6D856F675F31B ON item_ad (author_id)');
-        $this->addSql('CREATE TABLE item_ad_category (item_ad_id INTEGER NOT NULL, category_id INTEGER NOT NULL, PRIMARY KEY(item_ad_id, category_id))');
-        $this->addSql('CREATE INDEX IDX_C3C4C276593CE46 ON item_ad_category (item_ad_id)');
-        $this->addSql('CREATE INDEX IDX_C3C4C2712469DE2 ON item_ad_category (category_id)');
         $this->addSql('CREATE TABLE item_ad_like (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author_id INTEGER DEFAULT NULL, item_ad_id INTEGER DEFAULT NULL, liked BOOLEAN NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL)');
         $this->addSql('CREATE INDEX IDX_1FF13482F675F31B ON item_ad_like (author_id)');
         $this->addSql('CREATE INDEX IDX_1FF134826593CE46 ON item_ad_like (item_ad_id)');
@@ -50,7 +47,7 @@ final class Version20200428091055 extends AbstractMigration
         $this->addSql('CREATE TABLE offer (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, item_id INTEGER NOT NULL, item_ad_id INTEGER NOT NULL, price INTEGER NOT NULL)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_29D6873E126F525E ON offer (item_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_29D6873E6593CE46 ON offer (item_ad_id)');
-        $this->addSql('CREATE TABLE request (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, item_ad_id INTEGER DEFAULT NULL, item_name VARCHAR(255) NOT NULL, item_description VARCHAR(255) NOT NULL, min_price INTEGER NOT NULL, max_price INTEGER DEFAULT NULL)');
+        $this->addSql('CREATE TABLE request (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, item_ad_id INTEGER NOT NULL, item_name VARCHAR(255) NOT NULL, item_description VARCHAR(255) NOT NULL, min_price INTEGER NOT NULL, max_price INTEGER DEFAULT NULL)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_3B978F9F6593CE46 ON request (item_ad_id)');
         $this->addSql('CREATE TABLE score (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author_id INTEGER DEFAULT NULL, item_ad_id INTEGER DEFAULT NULL, value INTEGER NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL)');
         $this->addSql('CREATE INDEX IDX_32993751F675F31B ON score (author_id)');
@@ -60,7 +57,7 @@ final class Version20200428091055 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649E7927C74 ON user (email)');
     }
 
-    public function down(Schema $schema): void
+    public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
@@ -70,7 +67,6 @@ final class Version20200428091055 extends AbstractMigration
         $this->addSql('DROP TABLE image');
         $this->addSql('DROP TABLE item');
         $this->addSql('DROP TABLE item_ad');
-        $this->addSql('DROP TABLE item_ad_category');
         $this->addSql('DROP TABLE item_ad_like');
         $this->addSql('DROP TABLE message');
         $this->addSql('DROP TABLE message_thread');
