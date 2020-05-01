@@ -5,6 +5,8 @@
     <nav class='Header-nav'>
         {% if page is defined  %}
             {% set active = page %}
+        {% else %}
+            {% set active = '' %}
         {% endif %}
         
         <a class='Header-link {{ (active == 'offer') ? 'active' }}' id="header-link-offer" href="{{ path('show_offer') }}">Offer</a>
