@@ -10,8 +10,10 @@
     border-radius: 15px;
     padding: 15px;
 
-    display: flex;
-    flex-wrap: wrap;
+    .home-categories--listing {
+      display: flex;
+      flex-wrap: wrap;
+    }
 
     & > .title {
       height: 90px;

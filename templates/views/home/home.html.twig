@@ -4,9 +4,14 @@
 {% block body %}
     <section id="home">
         <aside class="home-categories">
-            {% for category in categories %}
-                {{ category(category.name, category.icon, category.id, 64, 64, 'dark') }}
-            {% endfor %}
+            <form action="{{ path(app.request.get('_route')) }}" method="post">
+                <div class="home-categories--listing">
+                    {% for category in categories %}
+                        {{ category(category.name, category.icon, category.id, 64, 64, 'dark') }}
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-bg--submit">Filter</button>
+            </form>
         </aside>
         <div class="home-listing-wrapper">
             {% block content %}{% endblock %}
