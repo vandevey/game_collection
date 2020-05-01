@@ -9,16 +9,18 @@
     &-list {
         display: flex;
         flex-wrap: wrap;
+        margin: 0;
+        padding: 30px;
     }
 
     &-listing {
-        list-style-type: none;
         background-color: $complementary;
         width: calc(100% / 3 - 40px);
         margin: 30px 20px;
         border-radius: $br-element;
         position: relative;
-        
+        list-style: none;
+
         &.Request {
             &::before {
                 position: absolute;

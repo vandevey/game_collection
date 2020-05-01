@@ -41,7 +41,7 @@
                     {% for category in form.categories %}
                         {% set index = category.vars.value %}
                         {% set entity = form.categories.vars.choices[index].data %}
-                        {{ block.category(entity.name, entity.icon, index) }}
+                        {{ block.category(entity.name, 'item',entity.icon, index) }}
                     {% endfor %}
                 </div>
             </div>

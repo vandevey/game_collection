@@ -17,30 +17,20 @@
             <div>
                 {{ form_row(form.itemAd.title) }}
                 {{ form_row(form.itemAd.description) }}
-                {% if type == "request" %}
-                    <!-- switch -->
-                    {{ form_widget(form.itemAd.is_visible, { 'attr': {'class': 'hidden'}}) }}
-                    {{ block.switch(form.itemAd.is_visible.vars.label, type, ['itemAd', 'is_visible'], true) }}
-                    <!-- switch -->
-                {% endif %}
             </div>
             <div>
                 {% if type == "offer" %}
                     {{ form_row(form.price) }}
-                    <!-- switch -->
-                    {{ form_widget(form.itemAd.is_visible, { 'attr': {'class': 'hidden'}}) }}
-                    {{ block.switch(form.itemAd.is_visible.vars.label, type,['itemAd', 'is_visible'], true) }}
-                    <!-- switch -->
                 {% elseif type == "request" %}
-                    {{ form_row(form.itemName) }}
-                    {{ form_row(form.itemDescription) }}
                     <div>
                         {{ form_row(form.minPrice) }}
                         {{ form_row(form.maxPrice) }}
                     </div>
-
                 {% endif %}
-
+                <!-- switch -->
+                {{ form_widget(form.itemAd.is_visible, { 'attr': {'class': 'hidden'}}) }}
+                {{ block.switch(form.itemAd.is_visible.vars.label, type,['itemAd', 'is_visible'], true) }}
+                <!-- switch -->
             </div>
         </div>
         {% if type == "offer" %}
@@ -56,7 +46,21 @@
                     {% endfor %}
                 </div>
             </div>
+        {% else %}
+            <!-- hide category row, done after -->
+            {{ form_widget(form.categories, { 'attr': {'class': 'hidden'} }) }}
+            <div class="modal-entity--list">
+                <label>Categories</label>
+                <div class="modal-entity--listing">
+                    {% for category in form.categories %}
+                        {% set index = category.vars.value %}
+                        {% set entity = form.categories.vars.choices[index].data %}
+                        {{ block.category(entity.name, type, entity.icon, index) }}
+                    {% endfor %}
+                </div>
+            </div>
         {% endif %}
+
         <div class="modal-button">
             {% if app.request.get('_route') !=  'app_login' %}
                 <a href="{{ app.request.headers.get('referer') }}" class="btn btn-bg--dark">Cancel</a>

@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\ItemAd;
 use App\Entity\Request as RequestEntity;
+use App\Entity\Offer;
+use App\Entity\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -41,6 +43,7 @@ class AdListingController extends AbstractController
         return $this->render('views/home/listing.html.twig', [
             'all' => $all,
             'categories' => $this->categories,
+            'page' => 'home',
         ]);
        
      
@@ -56,19 +59,29 @@ class AdListingController extends AbstractController
         $request = $entityManager->getRepository(RequestEntity::class)->findAll();
 
         return $this->render('views/home/request.html.twig', [
+        $request = $entityManager->getRepository(ItemAd::class)->getRequest();
+
+
+        return $this->render('views/ad/request.html.twig', [
             'requests' => $request,
             'categories' => $this->categories,
+            'page' => 'request',
         ]);
-       
-    
     }
 
     /**
-     * @Route("/offer", name="show_offer")
+     * @Route("/offers", name="show_offer")
+     * @param EntityManagerInterface $entityManager
      */
-    public function offer()
+    public function offer(EntityManagerInterface $entityManager)
     {
-       
+        $offers = $entityManager->getRepository(ItemAd::class)->getOffer();
+
+
+        return $this->render('views/ad/offer.html.twig', [
+            'offers' => $offers,
+            'page' => 'offer',
+        ]);
     }
 
 }
