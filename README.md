@@ -16,7 +16,7 @@ php bin/console d:m:m
 
 # init webpack
 nmp install
-npm run prod # init assets
+npm run build # init assets
 ```
 
 You can also populate the database with the IGDB Api. First create an account and get your own `user-key`. 
@@ -32,20 +32,4 @@ npm run prod # to build the new assets
 ````
 
 If there is error check your credential key.
-
-## Todo
-- Listing
-    - Recherche avec catégorie (liste des categorie + recherche) [Joss]
-    - menu navigation (requête et offre)  [Yoan]
-    - Listing des requêtes [Yoan]
-    - Listing des offres [Yoan]
-    - score (!!!!!) [Joss]
-- Profil 
-    - Menu créer item, offre et requête [Joss]
-- Détail annonce [Yoan]
-- Docker [Joss]
-- Fix style [Yoan]
-#### ++
-- BarbaJS [Yoan]
-- Message [Joss]
     
