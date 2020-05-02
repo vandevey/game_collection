@@ -9,7 +9,7 @@
 				{% for item in all %}
 					{% if item.getIsVisible() %}
 						<li class="Home-listing {{ item.isOffer() ? 'Request' : 'Offer'}}">
-							<a class="Home-link" href="">
+							<a class="Home-link" href="{{ path("detail", {'id': item.id}) }}">
 								<h3 class="Home-subtitle">{{item.title}}</h3>
 								<p class="Home-desc">{{item.description}}</p>
 							</a>
