@@ -4,6 +4,7 @@
 namespace App\DataFixtures;
 
 
+use App\Entity\Category;
 use App\Entity\Item;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -47,12 +48,15 @@ class ItemsFixtures extends AbstractFixtures implements DependentFixtureInterfac
                     $this->getReference($this->buildReferenceName(rand(1, 2), UserFixtures::RESOURCE_NAME))
                 );
 
+
                 if (isset($itemData->genres)) {
                     foreach ($itemData->genres as $categoryId) {
                         try {
                             $item->addCategory(
                                 $this->getReference(
-                                    $this->buildReferenceName($categoryId, CategoriesFixtures::RESOURCE_NAME)
+                                    $this->buildReferenceName(
+                                        [CategoriesFixtures::GENRES_REF,$categoryId],
+                                        CategoriesFixtures::RESOURCE_NAME)
                                 )
                             );
                         } catch (\Exception $e) {

@@ -5,12 +5,16 @@
 
     &-count {
         color: $complementary;
+        margin: 20px 30px 0;
+        font-size: 24px;
+        line-height: 32px;
+        display: block;
     }
     &-list {
         display: flex;
         flex-wrap: wrap;
         margin: 0;
-        padding: 30px;
+        padding: 20px 30px;
     }
 
     &-listing {
