@@ -26,8 +26,14 @@ class ProfilController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function show(User $user, Request $request, PasswordManager $passwordManager, EntityManagerInterface $entityManager)
+    public function show(?User $user, Request $request, PasswordManager $passwordManager, EntityManagerInterface $entityManager)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        /** @var User $user */
+        if (null === $user || $user->getId() !== $this->getUser()->getId()) {
+            return $this->redirectToRoute('show_profil', ['id' => $this->getUser()->getId()]);
+        }
+
         $form = $this->createForm(ProfilType::class, $user);
 
         $form->handleRequest($request);
