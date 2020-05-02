@@ -52,7 +52,7 @@ class ItemAdRepository extends ServiceEntityRepository
                 ->leftJoin('ad.request','r')
                 ->having('COUNT(r.id) = 0')
                 ->orderBy('ad.updatedAt', 'DESC')
-                ->groupBy('ad.title')
+                ->groupBy('ad.id, ad.title')
                 ->getQuery()
                 ->getResult();
         }
@@ -61,7 +61,7 @@ class ItemAdRepository extends ServiceEntityRepository
             ->leftJoin('ad.request','o')
             ->having('COUNT(o.id) = 0')
             ->orderBy('ad.updatedAt', 'DESC')
-            ->groupBy('ad.title')
+            ->groupBy('ad.id, ad.title')
             ->getQuery() 
             ->getResult();
            
@@ -80,7 +80,7 @@ class ItemAdRepository extends ServiceEntityRepository
                 ->leftJoin('r.categories', 'cr')
                 ->andWhere('cr.id in ' . $categoriesString)
                 ->orderBy('ad.updatedAt', 'DESC')
-                ->groupBy('ad.title')
+                ->groupBy('ad.id, ad.title')
                 ->getQuery()
                 ->getResult();
         }
@@ -89,7 +89,7 @@ class ItemAdRepository extends ServiceEntityRepository
         ->leftJoin('ad.offer','o')
         ->having('COUNT(o.id) = 0')
         ->orderBy('ad.updatedAt', 'DESC')
-        ->groupBy('ad.title')
+        ->groupBy('ad.id, ad.title')
         ->getQuery() 
         ->getResult();
     }

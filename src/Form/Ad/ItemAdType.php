@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Form;
+namespace App\Form\Ad;
 
 
 use App\Entity\ItemAd;

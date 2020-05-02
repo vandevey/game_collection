@@ -45,7 +45,7 @@ class OfferType extends AbstractType
                         ->join('i.author', 'a', Join::WITH, 'a.id = ' . $this->user->getId() )
                         ->leftJoin('i.offer','o')
                         ->having('COUNT(o.id) = 0')
-                        ->groupBy('i.name')
+                        ->groupBy('i.id, i.name')
                         ->orderBy('i.name', 'ASC');
                 },
             ])
